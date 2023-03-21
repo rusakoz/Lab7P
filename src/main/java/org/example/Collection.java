@@ -2,9 +2,7 @@ package org.example;
 import java.util.LinkedHashSet;
 
 public class Collection {
-    private LinkedHashSet<Flat> collection;
+    public LinkedHashSet<Flat> collection = new LinkedHashSet<>();
 
-    public Collection(LinkedHashSet<Flat> collection) {
-        this.collection = collection;
-    }
+
 }
