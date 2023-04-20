@@ -1,20 +1,19 @@
 package org.example;
 
+import com.opencsv.bean.CsvBindByName;
 import jakarta.validation.constraints.NotNull;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 public class Coordinates {
     @NotNull(message = "Координата x не может быть null")
+    @CsvBindByName(column = "Coordinates Integer x")
     private Integer x; //Поле не может быть null
+    @CsvBindByName(column = "Coordinates Float y")
     private float y;
 
-    public Coordinates(Integer x, float y){
-        this.x = x;
-        this.y = y;
-    }
 }
