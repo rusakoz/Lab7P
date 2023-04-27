@@ -1,7 +1,8 @@
 package org.example;
 
 public interface Command {
-    void Descr();
-    void Execute();
+    default void Descr(){}
+    default void execute(String[] args){}
+    //default void execute(){}
 
 }

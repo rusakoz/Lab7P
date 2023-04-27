@@ -303,11 +303,15 @@ public class CollectionManager {
         house = new House(nameHouse, yearHouse, numberOfFloorsHouse);
         Flat f = new Flat(id, name, coordinates, date, area, numberOfRooms, timeToMetroByTransport, view, house);
         collection.add(f);
+        new InputOutput().Output("Новый элемент был успешно добавлен");
+
 
     }
 
     public void remove(int id){
-        collection.removeIf(a -> a.getId() == id);
+        if (!collection.removeIf(a -> a.getId() == id)) {
+            new InputOutput().Output("Элемента под id = " + id + " нет в коллекции");
+        }else new InputOutput().Output("Элемент коллекции под id = " + id + " был успешно удален");
         Write();
     }
 }
