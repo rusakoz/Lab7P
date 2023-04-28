@@ -1,7 +1,10 @@
-package org.example;
+package org.example.CommandManager;
+
+
 
 public interface Command {
-    default void Descr(){}
+    String Arg();
+    String Descr();
     default void execute(String[] args){}
     //default void execute(){}
 

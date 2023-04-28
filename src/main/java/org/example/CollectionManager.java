@@ -10,6 +10,8 @@ import io.github.cdimascio.dotenv.Dotenv;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.example.CommandManager.Command;
+import org.example.CommandManager.Invoker;
 
 
 import java.io.*;
@@ -22,13 +24,19 @@ import java.util.*;
 @Setter
 @Getter
 public class CollectionManager {
-    private LinkedHashSet<Flat> collection = new LinkedHashSet<>();
+    private Date date;
+    private LinkedHashSet<Flat> collection;
     private List<Flat> beans = null;
     private File file;
+
     private final Dotenv dotenv = Dotenv.load();
     private final String path = dotenv.get("HELLO");
     private final String path2 = dotenv.get("HELLO2");
 
+    public CollectionManager(){
+        this.date = new Date();
+        this.collection = new LinkedHashSet<>();
+    }
 
     public void Read() {
 
@@ -37,12 +45,14 @@ public class CollectionManager {
             if(!file.canRead() || !file.canWrite()) throw new SecurityException();
         } catch (SecurityException e) {
             System.err.println("Файл недоступен для чтения");
+            return;
         }
 
         try {
             if(file.length() == 0) throw new CsvException();
         } catch (CsvException e) {
             System.err.println("Файл пуст");
+            return;
         }
 
         try {
@@ -66,7 +76,9 @@ public class CollectionManager {
             System.err.println("Файл отсутствует, создайте файл в папке Lab5P с именем test.csv");
         }
 
+
         collection = new LinkedHashSet<>(beans);
+
 
         int count = 1;
         Set<Integer> set = new HashSet<>();
@@ -129,10 +141,7 @@ public class CollectionManager {
         }
     }
 
-    public void addFromScanner(){
-
-        ScannerSysIn scanner = new ScannerSysIn();
-        Date date = new Date();
+    public void add(){
 
         Set<Integer> set = new HashSet<>();
         int id;
@@ -156,6 +165,14 @@ public class CollectionManager {
             }
         }
         set.clear();
+
+        addNewElementFromScanner(id);
+        new InputOutput().Output("Новый элемент был успешно добавлен");
+    }
+
+    public void addNewElementFromScanner(int id){
+        ScannerSysIn scanner = new ScannerSysIn();
+        Date date = new Date();
 
         String name = null;
         //Coordinates
@@ -303,15 +320,99 @@ public class CollectionManager {
         house = new House(nameHouse, yearHouse, numberOfFloorsHouse);
         Flat f = new Flat(id, name, coordinates, date, area, numberOfRooms, timeToMetroByTransport, view, house);
         collection.add(f);
-        new InputOutput().Output("Новый элемент был успешно добавлен");
-
-
     }
 
     public void remove(int id){
         if (!collection.removeIf(a -> a.getId() == id)) {
             new InputOutput().Output("Элемента под id = " + id + " нет в коллекции");
         }else new InputOutput().Output("Элемент коллекции под id = " + id + " был успешно удален");
+    }
+
+    public void info(){
+        new InputOutput().Output("Тип коллекции - 'LinkedHashSet' | Дата инициализации - " + date + " | Кол-во элементов - " + collection.size());
+    }
+
+    public void show(){
+        collection.forEach(a -> new InputOutput().Output("id: " + a.getId() + " | name: " + a.getName() +
+                " | кол-во комнат: " + a.getNumberOfRooms() + " | время до метро: " + a.getTimeToMetroByTransport() +
+                " | область: " + a.getArea() + " | дата создания элемента: " + a.getCreationDate() +
+                " | координата X: " + a.getCoordinates().getX() + " | координата Y: " + a.getCoordinates().getY() +
+                " | название дома: " + a.getHouse().getName() + " | возраст дома: " + a.getHouse().getYear() +
+                " | кол-во этажей: " + a.getHouse().getNumberOfFloors() + " | вид: " + a.getView()));
+    }
+
+    public void update(int id){
+        if(collection.removeIf(a -> a.getId() == id)){
+            addNewElementFromScanner(id);
+            new InputOutput().Output("Элемент успешно обновлен");
+        }else new InputOutput().Output("Элемента под id = " + id + " нет в коллекции");
+
+    }
+
+    public void clear(){
+        collection.clear();
+        new InputOutput().Output("Коллекция успешно очищена");
+    }
+
+    public void save(){
         Write();
+        new InputOutput().Output("Коллекция успешно сохранена");
+    }
+
+    public void executeScript(String fileName){
+        File file2 = new File(fileName);
+        Invoker invoker = new Invoker(this);
+        Set<String> set = new HashSet<>();
+
+        try {
+            if(!file2.canRead() || !file2.canWrite()) throw new SecurityException();
+        } catch (SecurityException e) {
+            System.err.println("Файл недоступен для чтения");
+            return;
+        }
+
+        try {
+            if(file2.length() == 0) throw new CsvException();
+        } catch (CsvException e) {
+            System.err.println("Файл пуст");
+            return;
+        }
+
+        try {
+            Scanner sc = new Scanner(new FileInputStream(Path.of(fileName).toFile()), StandardCharsets.UTF_8);
+            set.add("execute_script "+fileName);
+            int f = set.size();
+            while (sc.hasNext()) {
+
+                String a = null;
+                try {
+                    a = sc.nextLine();
+                    if (a.matches("execute_script .*")){
+                        set.add(a);
+
+                        if (f == set.size()){
+                            System.out.println("Был обнаружен цикл в скриптах, выполнение скриптов остановлено");
+                            return;
+                        }else f++;
+                    }
+
+
+                    String[] tokens = a.split(" ");
+                    Command command = invoker.getCommands().get(tokens[0]);
+                    command.execute(tokens);
+
+                } catch (NullPointerException e) {
+                    System.out.println("Команда: '" + a + "' введена неверно выполнение скрипта было остановлено");
+                    return;
+                } catch (NoSuchElementException e) {
+                    System.out.println("не-не");
+
+                }
+            }
+            } catch(FileNotFoundException e){
+                new InputOutput().Output("Файл отсутствует");
+            }
+
+        new InputOutput().Output("Скрипт успешно выполнен");
     }
 }
