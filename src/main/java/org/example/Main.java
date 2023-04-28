@@ -13,8 +13,9 @@ public class Main {
             System.out.println(g);
 
         }
-        a.addFromScanner();
-        a.addFromScanner();
+
+        Invoker invoker = new Invoker();
+        invoker.invoke(a);
         a.Write();
 
         for (Flat h:a.getCollection()
