@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.CommandManager.Invoker;
+
 public class Main {
     public static void main(String[] args) {
         InputOutput Output = new InputOutput();
@@ -14,8 +16,8 @@ public class Main {
 
         }
 
-        Invoker invoker = new Invoker();
-        invoker.invoke(a);
+        Invoker invoker = new Invoker(a);
+        invoker.Invoke();
         a.Write();
 
         for (Flat h:a.getCollection()
