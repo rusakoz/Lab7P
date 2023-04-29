@@ -4,9 +4,9 @@ import lombok.NoArgsConstructor;
 import org.example.CollectionManager;
 import org.example.CommandManager.Command;
 @NoArgsConstructor
-public class AddCommand implements Command {
+public class AddIfMaxCommand implements Command {
     CollectionManager cm;
-    public AddCommand(CollectionManager cm){
+    public AddIfMaxCommand(CollectionManager cm){
         this.cm = cm;
     }
     @Override
@@ -15,10 +15,10 @@ public class AddCommand implements Command {
     }
     @Override
     public String Descr(){
-        return "добавить новый объект";
+        return "добавить новый объект, если он больше наибольшего";
     }
     @Override
     public void execute(String[] args) {
-        cm.addNewElement();
+        cm.addIfMax();
     }
 }

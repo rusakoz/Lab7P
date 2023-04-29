@@ -28,12 +28,14 @@ public class CollectionManager {
     private LinkedHashSet<Flat> collection;
     private List<Flat> beans = null;
     private File file;
+    private List<String> history;
 
     private final Dotenv dotenv = Dotenv.load();
     private final String path = dotenv.get("HELLO");
     private final String path2 = dotenv.get("HELLO2");
 
     public CollectionManager(){
+        this.history = new ArrayList<>();
         this.date = new Date();
         this.collection = new LinkedHashSet<>();
     }
@@ -141,7 +143,18 @@ public class CollectionManager {
         }
     }
 
-    public void add(){
+    public void add(Flat a){
+        collection.add(a);
+        new InputOutput().Output("Новый элемент был успешно добавлен");
+    }
+
+    public void addNewElement(){
+        newElementFromScanner(newId());
+        new InputOutput().Output("Новый элемент был успешно добавлен");
+        history("add");
+    }
+
+    public int newId(){
 
         Set<Integer> set = new HashSet<>();
         int id;
@@ -165,12 +178,10 @@ public class CollectionManager {
             }
         }
         set.clear();
-
-        addNewElementFromScanner(id);
-        new InputOutput().Output("Новый элемент был успешно добавлен");
+        return id;
     }
 
-    public void addNewElementFromScanner(int id){
+    public Flat newElementFromScanner(int id){
         ScannerSysIn scanner = new ScannerSysIn();
         Date date = new Date();
 
@@ -318,18 +329,20 @@ public class CollectionManager {
         }
 
         house = new House(nameHouse, yearHouse, numberOfFloorsHouse);
-        Flat f = new Flat(id, name, coordinates, date, area, numberOfRooms, timeToMetroByTransport, view, house);
-        collection.add(f);
+        return new Flat(id, name, coordinates, date, area, numberOfRooms, timeToMetroByTransport, view, house);
+
     }
 
     public void remove(int id){
         if (!collection.removeIf(a -> a.getId() == id)) {
             new InputOutput().Output("Элемента под id = " + id + " нет в коллекции");
         }else new InputOutput().Output("Элемент коллекции под id = " + id + " был успешно удален");
+        history("remove");
     }
 
     public void info(){
         new InputOutput().Output("Тип коллекции - 'LinkedHashSet' | Дата инициализации - " + date + " | Кол-во элементов - " + collection.size());
+        history("info");
     }
 
     public void show(){
@@ -339,24 +352,26 @@ public class CollectionManager {
                 " | координата X: " + a.getCoordinates().getX() + " | координата Y: " + a.getCoordinates().getY() +
                 " | название дома: " + a.getHouse().getName() + " | возраст дома: " + a.getHouse().getYear() +
                 " | кол-во этажей: " + a.getHouse().getNumberOfFloors() + " | вид: " + a.getView()));
+        history("show");
     }
 
     public void update(int id){
         if(collection.removeIf(a -> a.getId() == id)){
-            addNewElementFromScanner(id);
-            new InputOutput().Output("Элемент успешно обновлен");
+            add(newElementFromScanner(id));
         }else new InputOutput().Output("Элемента под id = " + id + " нет в коллекции");
-
+        history("update");
     }
 
     public void clear(){
         collection.clear();
         new InputOutput().Output("Коллекция успешно очищена");
+        history("clear");
     }
 
     public void save(){
         Write();
         new InputOutput().Output("Коллекция успешно сохранена");
+        history("save");
     }
 
     public void executeScript(String fileName){
@@ -391,7 +406,7 @@ public class CollectionManager {
                         set.add(a);
 
                         if (f == set.size()){
-                            System.out.println("Был обнаружен цикл в скриптах, выполнение скриптов остановлено");
+                            new InputOutput().Output("Был обнаружен цикл в скриптах, выполнение скриптов остановлено");
                             return;
                         }else f++;
                     }
@@ -402,17 +417,57 @@ public class CollectionManager {
                     command.execute(tokens);
 
                 } catch (NullPointerException e) {
-                    System.out.println("Команда: '" + a + "' введена неверно выполнение скрипта было остановлено");
+                    new InputOutput().Output("Команда: '" + a + "' введена неверно выполнение скрипта было остановлено");
                     return;
                 } catch (NoSuchElementException e) {
-                    System.out.println("не-не");
+                    new InputOutput().Output("не-не");
 
                 }
             }
             } catch(FileNotFoundException e){
                 new InputOutput().Output("Файл отсутствует");
             }
-
+        set.clear();
         new InputOutput().Output("Скрипт успешно выполнен");
+        history("execute_script");
     }
+
+    public void addIfMax(){
+        Flat flat = newElementFromScanner(newId());
+        if (flat.compareTo(Collections.max(collection)) > 0){
+            add(flat);
+        }else new InputOutput().Output("Объект не больше максимального, поэтому не был добавлен в коллекцию");
+        history("add_if_max");
+    }
+
+    public void addIfMin(){
+        Flat flat = newElementFromScanner(newId());
+        if (flat.compareTo(Collections.min(collection)) > 0){
+            add(flat);
+        }else new InputOutput().Output("Объект не больше минимального, поэтому не был добавлен в коллекцию");
+        history("add_if_min");
+    }
+
+    public void history(String commandName){
+        if (history.size() < 15) {
+            history.add(commandName);
+        }else {
+            history.remove(0);
+            history.add(commandName);
+        }
+    }
+    public void historyOutput(){
+        history("history");
+        history.forEach(a -> new InputOutput().Output(a));
+    }
+
+    public void sumOfTimeToMetroByTransport(){
+        float sum = 0;
+        for (Flat a:collection) {
+            sum += a.getTimeToMetroByTransport();
+        }
+        new InputOutput().Output(String.valueOf(sum));
+        history("sum_of_time_to_metro_by_transport");
+    }
+
 }

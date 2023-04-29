@@ -27,7 +27,7 @@ public class ExecuteScriptCommand implements Command {
             cm.executeScript(args[1]);
         }catch (ArrayIndexOutOfBoundsException e){
             System.out.println(e.getMessage());
-            new InputOutput().Output("Не был введен аргумент, повторите попытку1234");
+            new InputOutput().Output("Не был введен аргумент, повторите попытку");
         }
     }
 }

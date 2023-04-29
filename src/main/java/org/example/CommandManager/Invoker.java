@@ -24,6 +24,10 @@ public class Invoker {
         commands.put("clear", new ClearCommand());
         commands.put("save", new SaveCommand());
         commands.put("execute_script", new ExecuteScriptCommand());
+        commands.put("add_if_max", new AddIfMaxCommand());
+        commands.put("add_if_min", new AddIfMinCommand());
+        commands.put("history", new HistoryCommand());
+        commands.put("sum_of_time_to_metro_by_transport", new SumOfTimeToMetroByTransportCommand());
     }
 
     public Invoker(CollectionManager cm) {
@@ -37,6 +41,10 @@ public class Invoker {
         commands.put("clear", new ClearCommand(cm));
         commands.put("save", new SaveCommand(cm));
         commands.put("execute_script", new ExecuteScriptCommand(cm));
+        commands.put("add_if_max", new AddIfMaxCommand(cm));
+        commands.put("add_if_min", new AddIfMinCommand(cm));
+        commands.put("history", new HistoryCommand(cm));
+        commands.put("sum_of_time_to_metro_by_transport", new SumOfTimeToMetroByTransportCommand(cm));
     }
 
 

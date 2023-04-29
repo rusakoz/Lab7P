@@ -3,11 +3,10 @@ package org.example;
 import com.opencsv.bean.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import jakarta.validation.constraints.NotNull;
 
-import java.util.Date;
 
 @Getter
 @Setter
@@ -51,7 +50,6 @@ public class Flat implements Comparable<Flat> {
 
     @Override
     public int compareTo(Flat o) {
-        return this.id - o.id;
+        return this.numberOfRooms - o.numberOfRooms;
     }
-
 }
