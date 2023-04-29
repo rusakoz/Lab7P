@@ -6,8 +6,15 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import java.util.Set;
 
+/**
+ * Клаас валидирования данных из файла
+ */
 public class Validators {
-
+    /**
+     *
+     * @param flat объект класса Flat
+     * @param msg параметр для вывода информации на экран
+     */
     public final void validatorFlat(Flat flat, String msg) {
         ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
         Validator validator = validatorFactory.getValidator();
@@ -20,7 +27,11 @@ public class Validators {
         }
         validatorFactory.close();
     }
-
+    /**
+     *
+     * @param house объект класса House
+     * @param msg параметр для вывода информации на экран
+     */
     public final void validatorHouse(House house, String msg){
         ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
         Validator validator = validatorFactory.getValidator();
@@ -33,7 +44,11 @@ public class Validators {
         }
         validatorFactory.close();
     }
-
+    /**
+     *
+     * @param coordinates объект класса Coordinates
+     * @param msg параметр для вывода информации на экран
+     */
     public final void validatorCoordinates(Coordinates coordinates, String msg){
         ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
         Validator validator = validatorFactory.getValidator();

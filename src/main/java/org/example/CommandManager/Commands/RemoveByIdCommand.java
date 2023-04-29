@@ -4,7 +4,9 @@ import lombok.NoArgsConstructor;
 import org.example.CollectionManager;
 import org.example.CommandManager.Command;
 import org.example.InputOutput;
-
+/**
+ * Класс описывающий команду Remove
+ */
 @NoArgsConstructor
 public class RemoveByIdCommand implements Command {
     CollectionManager cm;

@@ -6,8 +6,9 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-
-
+/**
+ * Основной класс, описывает объекты коллекции
+ */
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -47,7 +48,11 @@ public class Flat implements Comparable<Flat> {
     @CsvRecurse
     private House house; //Поле может быть null
 
-
+    /**
+     * Метод реализует сортировку по умолчанию по кол-ву комнат
+     * @param o объект для сравнения.
+     * @return возвращает целое число
+     */
     @Override
     public int compareTo(Flat o) {
         return this.numberOfRooms - o.numberOfRooms;

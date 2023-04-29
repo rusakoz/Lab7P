@@ -2,7 +2,9 @@ package org.example.CommandManager.Commands;
 
 import org.example.CommandManager.Command;
 import org.example.CommandManager.Invoker;
-
+/**
+ * Класс описывающий команду Help
+ */
 public class HelpCommand implements Command {
     @Override
     public String Arg(){

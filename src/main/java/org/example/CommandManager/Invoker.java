@@ -7,12 +7,17 @@ import org.example.CollectionManager;
 import org.example.CommandManager.Commands.*;
 
 import java.util.*;
-
+/**
+ * Класс описывающий чтение из System.in
+ */
 @Getter
 @Setter
 public class Invoker {
     Map<String, Command> commands;
 
+    /**
+     * Конструктор класса
+     */
     public Invoker() {
         this.commands = new LinkedHashMap<>();
         commands.put("help", new HelpCommand());
@@ -28,8 +33,14 @@ public class Invoker {
         commands.put("add_if_min", new AddIfMinCommand());
         commands.put("history", new HistoryCommand());
         commands.put("sum_of_time_to_metro_by_transport", new SumOfTimeToMetroByTransportCommand());
+        commands.put("group_counting_by_creation_date", new GroupCountingByCreationDateCommand());
+
     }
 
+    /**
+     * Конструктор класса с параметром
+     * @param cm параметр объекта класса CollectionManager
+     */
     public Invoker(CollectionManager cm) {
         this.commands = new LinkedHashMap<>();
         commands.put("help", new HelpCommand());
@@ -45,11 +56,15 @@ public class Invoker {
         commands.put("add_if_min", new AddIfMinCommand(cm));
         commands.put("history", new HistoryCommand(cm));
         commands.put("sum_of_time_to_metro_by_transport", new SumOfTimeToMetroByTransportCommand(cm));
+        commands.put("group_counting_by_creation_date", new GroupCountingByCreationDateCommand(cm));
+
     }
 
-
+    /**
+     * Метод реализующий чтение команд из System.in
+     */
     public void Invoke() {
-        System.out.println("запущен инвокер"); // отладка
+        System.out.println("invoker start"); // отладка
 
         //ScannerSysIn scanner = new ScannerSysIn();
         Scanner sc = new Scanner(System.in);
@@ -66,7 +81,6 @@ public class Invoker {
                 System.out.println("Команда введена неверно, повторите попытку, список команд - 'help'");
             } catch (NoSuchElementException e) {
                 System.out.println("не-не");
-
             }
         }
     }

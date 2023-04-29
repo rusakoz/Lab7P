@@ -4,7 +4,9 @@ import lombok.NoArgsConstructor;
 import org.example.CollectionManager;
 import org.example.CommandManager.Command;
 import org.example.InputOutput;
-
+/**
+ * Класс описывающий команду ExecuteScript
+ */
 @NoArgsConstructor
 public class ExecuteScriptCommand implements Command {
     CollectionManager cm;

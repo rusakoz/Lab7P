@@ -1,6 +1,12 @@
 package org.example;
 
+/**
+ * Интерфейс ввода/вывода
+ */
 public interface IO {
-    default void Input(String msg){}
+    /**
+     *
+     * @param msg строка для вывода на экран
+     */
     default void Output(String msg){}
 }
