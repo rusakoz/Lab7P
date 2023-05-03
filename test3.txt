@@ -1,4 +1,7 @@
 show
 help
-info
 execute_script test4.txt
+
+
+
+info

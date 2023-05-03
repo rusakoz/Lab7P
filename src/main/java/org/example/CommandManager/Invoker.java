@@ -29,6 +29,7 @@ public class Invoker {
         commands.put("clear", new ClearCommand());
         commands.put("save", new SaveCommand());
         commands.put("execute_script", new ExecuteScriptCommand());
+        commands.put("exit", new ExitCommand());
         commands.put("add_if_max", new AddIfMaxCommand());
         commands.put("add_if_min", new AddIfMinCommand());
         commands.put("history", new HistoryCommand());
@@ -43,7 +44,7 @@ public class Invoker {
      */
     public Invoker(CollectionManager cm) {
         this.commands = new LinkedHashMap<>();
-        commands.put("help", new HelpCommand());
+        commands.put("help", new HelpCommand(cm));
         commands.put("info", new InfoCommand(cm));
         commands.put("show", new ShowCommand(cm));
         commands.put("update", new UpdateCommand(cm));
@@ -52,6 +53,7 @@ public class Invoker {
         commands.put("clear", new ClearCommand(cm));
         commands.put("save", new SaveCommand(cm));
         commands.put("execute_script", new ExecuteScriptCommand(cm));
+        commands.put("exit", new ExitCommand());
         commands.put("add_if_max", new AddIfMaxCommand(cm));
         commands.put("add_if_min", new AddIfMinCommand(cm));
         commands.put("history", new HistoryCommand(cm));
@@ -73,9 +75,19 @@ public class Invoker {
 
             try {
                 String a = sc.nextLine(); // !!! nextLine !!!
-                String[] tokens = a.split(" ");
-                Command command = commands.get(tokens[0]);
-                command.execute(tokens);
+
+                if(a.matches("execute_script .*")){
+                    if(a.isEmpty()) continue;
+                    String[] tokens = a.split(" ");
+                    Command command = commands.get(tokens[0]);
+                    command.execute(tokens);
+                    AntiRecursionScript.clearSet();
+                }else {
+                    if(a.isEmpty()) continue;
+                    String[] tokens = a.split(" ");
+                    Command command = commands.get(tokens[0]);
+                    command.execute(tokens);
+                }
 
             } catch (NullPointerException e) {
                 System.out.println("Команда введена неверно, повторите попытку, список команд - 'help'");

@@ -17,4 +17,7 @@ public class InputOutput implements IO{
     public void Output(String msg) {
         System.out.println(msg);
     }
+
+    @Override
+    public void OutputErr(String msg){System.err.println(msg);}
 }
