@@ -104,12 +104,12 @@ public class CollectionManager {
 
         beans.clear();
 
-        for (Flat a : collection) {
-            System.out.print( a.getId() + " | " + a.getName() + " | " + a.getCoordinates().getX() + " | " + a.getCoordinates().getY() + " | " +
-                     a.getCreationDate() + " | " + a.getArea() + " | " + a.getNumberOfRooms() + " | " + a.getTimeToMetroByTransport() + " | " +
-                     a.getView() + " | " + a.getHouse().getName() + " | " + a.getHouse().getYear() + " | " + a.getHouse().getNumberOfFloors()
-                            +"\n" );
-        }
+        //for (Flat a : collection) {
+            //System.out.print( a.getId() + " | " + a.getName() + " | " + a.getCoordinates().getX() + " | " + a.getCoordinates().getY() + " | " +
+                     //a.getCreationDate() + " | " + a.getArea() + " | " + a.getNumberOfRooms() + " | " + a.getTimeToMetroByTransport() + " | " +
+                     //a.getView() + " | " + a.getHouse().getName() + " | " + a.getHouse().getYear() + " | " + a.getHouse().getNumberOfFloors()
+                            //+"\n" );
+        //}
     }
 
     public void Write() {
@@ -149,8 +149,7 @@ public class CollectionManager {
     }
 
     public void addNewElement(){
-        newElementFromScanner(newId());
-        new InputOutput().Output("Новый элемент был успешно добавлен");
+        add(newElementFromScanner(newId()));
         history("add");
     }
 
@@ -182,7 +181,7 @@ public class CollectionManager {
     }
 
     public Flat newElementFromScanner(int id){
-        ScannerSysIn scanner = new ScannerSysIn();
+        Scanner scanner = new Scanner(System.in);
         Date date = new Date();
 
         String name = null;
@@ -203,40 +202,40 @@ public class CollectionManager {
         //House
 
         new InputOutput().Output("Введите имя");
-        if (scanner.getScanner().hasNext()) {
-            while (!scanner.getScanner().hasNext("([А-Я][а-я]+)|([A-Z][a-z]+)")) {
+        if (scanner.hasNext()) {
+            while (!scanner.hasNext("([А-Я][а-я]+)|([A-Z][a-z]+)")) {
                 new InputOutput().Output("Неправильно введено имя, проверьте формат: Aaaaaaa");
-                scanner.getScanner().nextLine();
+                scanner.nextLine();
             }
-            name = scanner.getScanner().nextLine();
+            name = scanner.nextLine();
             new InputOutput().Output("Success");
         }
         new InputOutput().Output("Введите координату X, пример: 12345");
-        while (!scanner.getScanner().hasNextInt()) {
+        while (!scanner.hasNextInt()) {
             new InputOutput().Output("Неправильно введена координата X, проверьте формат: 12345");
-            scanner.getScanner().next();
+            scanner.next();
         }
-        X = scanner.getScanner().nextInt();
+        X = scanner.nextInt();
         new InputOutput().Output("Success");
 
 
         new InputOutput().Output("Введите кординату Y, пример: 12345,1");
-        while (!scanner.getScanner().hasNextFloat()) {
+        while (!scanner.hasNextFloat()) {
             new InputOutput().Output("Неправильно введена координата Y, проверьте формат: 12345,1");
-            scanner.getScanner().next();
+            scanner.next();
         }
-        Y = scanner.getScanner().nextFloat();
+        Y = scanner.nextFloat();
         new InputOutput().Output("Success");
         coordinates = new Coordinates(X, Y);
 
 
         new InputOutput().Output("Введите область(>нуля!), пример: 12345");
         while (!(area > 0)){
-            while (!scanner.getScanner().hasNextLong()){
+            while (!scanner.hasNextLong()){
                 new InputOutput().Output("Область введена неправильно, проверьте формат: 12345(>нуля!)");
-                scanner.getScanner().next();
+                scanner.next();
             }
-            area = scanner.getScanner().nextLong();
+            area = scanner.nextLong();
             if(area <= 0){
                 new InputOutput().Output("Область введена неправильно, проверьте формат: 12345(>нуля!)");
             }else new InputOutput().Output("Success");
@@ -245,11 +244,11 @@ public class CollectionManager {
 
         new InputOutput().Output("Введите кол-во комнат, пример: 12345(>нуля!)");
         while (!(numberOfRooms > 0)){
-            while (!scanner.getScanner().hasNextInt()){
+            while (!scanner.hasNextInt()){
                 new InputOutput().Output("Кол-во комнат введено неправильно, проверьте формат: 12345(>нуля!)");
-                scanner.getScanner().next();
+                scanner.next();
             }
-            numberOfRooms = scanner.getScanner().nextInt();
+            numberOfRooms = scanner.nextInt();
             if(numberOfRooms <= 0){
                 new InputOutput().Output("Кол-во комнат введено неправильно, проверьте формат: 12345(>нуля!)");
             }else new InputOutput().Output("Success");
@@ -258,11 +257,11 @@ public class CollectionManager {
 
         new InputOutput().Output("Введите время до метро, пример: 12345,1(>нуля!");
         while (!(timeToMetroByTransport > 0)){
-            while (!scanner.getScanner().hasNextFloat()){
+            while (!scanner.hasNextFloat()){
                 new InputOutput().Output("Время до метро введено неправильно, проверьте формат: 12345,1(>нуля!)");
-                scanner.getScanner().next();
+                scanner.next();
             }
-            timeToMetroByTransport = scanner.getScanner().nextFloat();
+            timeToMetroByTransport = scanner.nextFloat();
             if(timeToMetroByTransport <= 0){
                 new InputOutput().Output("Время до метро введено неправильно, проверьте формат: 12345,1(>нуля!)");
             }else new InputOutput().Output("Success");
@@ -270,8 +269,8 @@ public class CollectionManager {
 
 
         new InputOutput().Output("Введите вид, список доступных видов: YARD, PARK, NORMAL");
-        if (scanner.getScanner().hasNext()) {
-            String str = scanner.getScanner().nextLine();
+        if (scanner.hasNext()) {
+            String str = scanner.nextLine();
             while (view == null) {
                 switch (str) {
                     case "YARD" -> {
@@ -287,29 +286,29 @@ public class CollectionManager {
                         new InputOutput().Output("Success");
                     }
                     default -> {
-                        if (scanner.getScanner().hasNext())new InputOutput().Output("Вид введен неверно, проверьте формат: YARD, PARK, NORMAL");
-                        str = scanner.getScanner().nextLine();
+                        if (scanner.hasNext())new InputOutput().Output("Вид введен неверно, проверьте формат: YARD, PARK, NORMAL");
+                        str = scanner.nextLine();
                     }
                 }
             }
         }
 
         new InputOutput().Output("Введите название дома, пример: Ааааа");
-        while (!scanner.getScanner().hasNext("([А-Я][а-я]+)|([A-Z][a-z]+)")) {
+        while (!scanner.hasNext("([А-Я][а-я]+)|([A-Z][a-z]+)")) {
             new InputOutput().Output("Неправильно введено название дома, проверьте формат: Aaaaa");
-            scanner.getScanner().nextLine();
+            scanner.nextLine();
         }
-        nameHouse = scanner.getScanner().nextLine();
+        nameHouse = scanner.nextLine();
         new InputOutput().Output("Success");
 
 
         new InputOutput().Output("Введите возраст дома, пример: 12345(от 1 до 578)");
         while (!(yearHouse > 0 & yearHouse <= 578)){
-            while (!scanner.getScanner().hasNextLong()){
+            while (!scanner.hasNextLong()){
                 new InputOutput().Output("Возраст дома введен неправильно, проверьте формат: 12345(от 1 до 578!)");
-                scanner.getScanner().next();
+                scanner.next();
             }
-            yearHouse = scanner.getScanner().nextLong();
+            yearHouse = scanner.nextLong();
             if(yearHouse <= 0 | yearHouse > 578){
                 new InputOutput().Output("Взраст дома введен неправильно, проверьте формат: 12345(от 1 до 578!)");
             }else new InputOutput().Output("Success");
@@ -318,11 +317,11 @@ public class CollectionManager {
 
         new InputOutput().Output("Введите кол-во дверей дома, пример: 12345(>нуля!)");
         while (!(numberOfFloorsHouse > 0)){
-            while (!scanner.getScanner().hasNextLong()){
+            while (!scanner.hasNextLong()){
                 new InputOutput().Output("Кол-во дверей дома введено неправильно, проверьте формат: 12345(>нуля!)");
-                scanner.getScanner().next();
+                scanner.next();
             }
-            numberOfFloorsHouse = scanner.getScanner().nextLong();
+            numberOfFloorsHouse = scanner.nextLong();
             if(numberOfFloorsHouse <= 0){
                 new InputOutput().Output("Кол-во дверей дома введено неправильно, проверьте формат: 12345(>нуля!)");
             }else new InputOutput().Output("Success");
@@ -470,4 +469,22 @@ public class CollectionManager {
         history("sum_of_time_to_metro_by_transport");
     }
 
+    public void groupCountingByCreationDate(){
+        HashMap<Date, List<Flat>> hashMap = new HashMap<>();
+
+        for (Flat a:collection) {
+            if (!hashMap.containsKey(a.getCreationDate())){
+                List<Flat> list = new ArrayList<>();
+                list.add(a);
+                hashMap.put(a.getCreationDate(), list);
+            }else{
+                hashMap.get(a.getCreationDate()).add(a);
+            }
+        }
+        hashMap.forEach((a, b)-> System.out.println(a +" "+ b));
+        history("groupCountingByCreationDate");
+    }
+
+    //public void countLessThanHouse(){
+    //}
 }

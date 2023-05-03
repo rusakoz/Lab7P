@@ -4,6 +4,9 @@ import com.opencsv.bean.CsvBindByName;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+/**
+ * Класс описывает координаты
+ */
 @Getter
 @Setter
 @EqualsAndHashCode

@@ -3,6 +3,9 @@ package org.example.CommandManager.Commands;
 import lombok.NoArgsConstructor;
 import org.example.CollectionManager;
 import org.example.CommandManager.Command;
+/**
+ * Класс описывающий команду Show
+ */
 @NoArgsConstructor
 public class ShowCommand implements Command {
     CollectionManager cm;

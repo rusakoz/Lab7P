@@ -4,12 +4,12 @@ import lombok.NoArgsConstructor;
 import org.example.CollectionManager;
 import org.example.CommandManager.Command;
 /**
- * Класс описывающий команду AddIfMax
+ * Класс описывающий команду GroupCountingByCreationDateCommand
  */
 @NoArgsConstructor
-public class AddIfMaxCommand implements Command {
+public class GroupCountingByCreationDateCommand implements Command {
     CollectionManager cm;
-    public AddIfMaxCommand(CollectionManager cm){
+    public GroupCountingByCreationDateCommand(CollectionManager cm){
         this.cm = cm;
     }
     @Override
@@ -18,10 +18,10 @@ public class AddIfMaxCommand implements Command {
     }
     @Override
     public String Descr(){
-        return "добавить новый объект, если он больше наибольшего";
+        return "сгруппировать элементы по дате создания";
     }
     @Override
     public void execute(String[] args) {
-        cm.addIfMax();
+        cm.groupCountingByCreationDate();
     }
 }
