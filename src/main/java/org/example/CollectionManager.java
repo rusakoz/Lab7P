@@ -10,6 +10,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.example.CommandManager.AntiRecursionScript;
 import org.example.CommandManager.Command;
 import org.example.CommandManager.Invoker;
 
@@ -46,14 +47,14 @@ public class CollectionManager {
         try {
             if(!file.canRead() || !file.canWrite()) throw new SecurityException();
         } catch (SecurityException e) {
-            System.err.println("Файл недоступен для чтения");
+            new InputOutput().OutputErr("Файл недоступен для чтения, коллекция не была загружена");
             return;
         }
 
         try {
             if(file.length() == 0) throw new CsvException();
         } catch (CsvException e) {
-            System.err.println("Файл пуст");
+            new InputOutput().OutputErr("Файл пуст");
             return;
         }
 
@@ -75,12 +76,10 @@ public class CollectionManager {
             //});
 
         } catch (FileNotFoundException e) {
-            System.err.println("Файл отсутствует, создайте файл в папке Lab5P с именем test.csv");
+            new InputOutput().OutputErr("Файл отсутствует");
         }
 
-
         collection = new LinkedHashSet<>(beans);
-
 
         int count = 1;
         Set<Integer> set = new HashSet<>();
@@ -112,21 +111,29 @@ public class CollectionManager {
         //}
     }
 
-    public void Write() {
+    public boolean Write() {
 
         file = new File(path2);
 
         try {
             if(!file.canRead() || !file.canWrite()) throw new SecurityException();
         } catch (SecurityException e) {
-            System.err.println("Файл недоступен для записи");
+            new InputOutput().OutputErr("Файл недоступен для записи");
+            return false;
+        }
+
+        try {
+            if(!file.isFile()) throw new IOException();
+        } catch (IOException e) {
+            new InputOutput().OutputErr("Файл для сохранения коллекции не является файлом");
         }
 
         if(!file.isFile()) {
             try {
-                Files.createFile(Path.of("test2.csv"));
+                Files.createFile(Path.of(path2));
             } catch (IOException e) {
-                System.err.println(e.getMessage());
+                new InputOutput().OutputErr(e.getMessage());
+                return false;
             }
         }
 
@@ -139,8 +146,10 @@ public class CollectionManager {
             beanToCsv.write(beans);
             beans.clear();
         } catch (IOException | CsvDataTypeMismatchException | CsvRequiredFieldEmptyException e) {
-            System.err.println("При записи коллекции в файл произошла ошибка");
+            new InputOutput().OutputErr("При записи коллекции в файл произошла ошибка");
+            return false;
         }
+        return true;
     }
 
     public void add(Flat a){
@@ -345,12 +354,16 @@ public class CollectionManager {
     }
 
     public void show(){
-        collection.forEach(a -> new InputOutput().Output("id: " + a.getId() + " | name: " + a.getName() +
-                " | кол-во комнат: " + a.getNumberOfRooms() + " | время до метро: " + a.getTimeToMetroByTransport() +
-                " | область: " + a.getArea() + " | дата создания элемента: " + a.getCreationDate() +
-                " | координата X: " + a.getCoordinates().getX() + " | координата Y: " + a.getCoordinates().getY() +
-                " | название дома: " + a.getHouse().getName() + " | возраст дома: " + a.getHouse().getYear() +
-                " | кол-во этажей: " + a.getHouse().getNumberOfFloors() + " | вид: " + a.getView()));
+        if (collection.isEmpty()) {
+            new InputOutput().Output("Коллекция пустая");
+        }else {
+            collection.forEach(a -> new InputOutput().Output("id: " + a.getId() + " | name: " + a.getName() +
+                    " | кол-во комнат: " + a.getNumberOfRooms() + " | время до метро: " + a.getTimeToMetroByTransport() +
+                    " | область: " + a.getArea() + " | дата создания элемента: " + a.getCreationDate() +
+                    " | координата X: " + a.getCoordinates().getX() + " | координата Y: " + a.getCoordinates().getY() +
+                    " | название дома: " + a.getHouse().getName() + " | возраст дома: " + a.getHouse().getYear() +
+                    " | кол-во этажей: " + a.getHouse().getNumberOfFloors() + " | вид: " + a.getView()));
+        }
         history("show");
     }
 
@@ -368,15 +381,17 @@ public class CollectionManager {
     }
 
     public void save(){
-        Write();
-        new InputOutput().Output("Коллекция успешно сохранена");
+        if(Write()) {
+            new InputOutput().Output("Коллекция успешно сохранена");
+        }else new InputOutput().Output("Коллекция не была сохранена");
         history("save");
     }
 
-    public void executeScript(String fileName){
+    public void executeScript(String fileName) {
+        history("execute_script");
         File file2 = new File(fileName);
         Invoker invoker = new Invoker(this);
-        Set<String> set = new HashSet<>();
+        //Set<String> set = new HashSet<>();
 
         try {
             if(!file2.canRead() || !file2.canWrite()) throw new SecurityException();
@@ -394,29 +409,28 @@ public class CollectionManager {
 
         try {
             Scanner sc = new Scanner(new FileInputStream(Path.of(fileName).toFile()), StandardCharsets.UTF_8);
-            set.add("execute_script "+fileName);
-            int f = set.size();
+            AntiRecursionScript.add("execute_script "+fileName);
+            int f = AntiRecursionScript.getSet().size();
+
             while (sc.hasNext()) {
-
-                String a = null;
+                String scan = null;
                 try {
-                    a = sc.nextLine();
-                    if (a.matches("execute_script .*")){
-                        set.add(a);
+                    scan = sc.nextLine();
+                    if (scan.matches("execute_script .*")){
+                        AntiRecursionScript.add(scan);
 
-                        if (f == set.size()){
-                            new InputOutput().Output("Был обнаружен цикл в скриптах, выполнение скриптов остановлено");
+                        if (f == AntiRecursionScript.getSet().size()){
+                            new InputOutput().Output("Был обнаружен зацикливающий скрипт, выполнение которого было пропущено");
                             return;
                         }else f++;
                     }
-
-
-                    String[] tokens = a.split(" ");
+                    if(scan.isEmpty()) continue;
+                    String[] tokens = scan.split(" ");
                     Command command = invoker.getCommands().get(tokens[0]);
                     command.execute(tokens);
 
                 } catch (NullPointerException e) {
-                    new InputOutput().Output("Команда: '" + a + "' введена неверно выполнение скрипта было остановлено");
+                    new InputOutput().Output("Команда: '" + scan + "' введена неверно выполнение скрипта было остановлено");
                     return;
                 } catch (NoSuchElementException e) {
                     new InputOutput().Output("не-не");
@@ -426,9 +440,7 @@ public class CollectionManager {
             } catch(FileNotFoundException e){
                 new InputOutput().Output("Файл отсутствует");
             }
-        set.clear();
-        new InputOutput().Output("Скрипт успешно выполнен");
-        history("execute_script");
+        new InputOutput().Output("Выполнение скрипта окончено");
     }
 
     public void addIfMax(){
@@ -483,6 +495,10 @@ public class CollectionManager {
         }
         hashMap.forEach((a, b)-> System.out.println(a +" "+ b));
         history("groupCountingByCreationDate");
+    }
+
+    public void help(){
+        history("help");
     }
 
     //public void countLessThanHouse(){
