@@ -1,6 +1,5 @@
 package org.example.CommandManager;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import org.example.CollectionManager;

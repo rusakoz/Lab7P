@@ -1,0 +1,7 @@
+show
+help
+execute_script test4.txt
+
+
+
+info

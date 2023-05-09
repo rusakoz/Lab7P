@@ -6,10 +6,12 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import java.util.Set;
 
+
 /**
  * Клаас валидирования данных из файла
  */
 public class Validators {
+
     /**
      *
      * @param flat объект класса Flat
