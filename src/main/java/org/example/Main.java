@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.CommandManager.Invoker;
+import org.example.CommandManager.*;
 
 /**
  * Класс запуска программы
