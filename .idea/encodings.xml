@@ -1,7 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/Client/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/Collection/Coordinates.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/Collection/Flat.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/Collection/House.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/Collection/Validators.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/Collection/View.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/AntiRecursionScript.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/Command.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/Commands/AddCommand.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/Commands/AddIfMaxCommand.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/Commands/AddIfMinCommand.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/Commands/ClearCommand.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/Commands/CountLessThanHouseCommand.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/Commands/ExecuteScriptCommand.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/Commands/ExitCommand.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/Commands/GroupCountingByCreationDateCommand.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/Commands/HelpCommand.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/Commands/HistoryCommand.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/Commands/InfoCommand.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/Commands/RemoveByIdCommand.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/Commands/SaveCommand.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/Commands/ShowCommand.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/Commands/SumOfTimeToMetroByTransportCommand.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/Commands/UpdateCommand.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/CreateObjectForCollection/AddObject.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/CreateObjectForCollection/ObjectToSend.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/CommandManager/Invoker.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/Kto.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/Main.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/Others.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java/org/client/SocketClient.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/resources/.env" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Client/src/main/resources/log4j2.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Clients/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Clients/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Main/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Main/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Main/src/main/resources/.env" charset="UTF-8" />
@@ -9,7 +44,20 @@
     <file url="file://$PROJECT_DIR$/Main/src/main/resources/test2.csv" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Main/src/main/resources/test3.txt" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Main/src/main/resources/test4.txt" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/Server/src/main/resources/log4j2.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Servers/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Servers/src/main/java/org/server/Coordinates.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Servers/src/main/java/org/server/Flat.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Servers/src/main/java/org/server/House.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Servers/src/main/java/org/server/Main.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Servers/src/main/java/org/server/ObjectToSend.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Servers/src/main/java/org/server/Other.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Servers/src/main/java/org/server/SocketServer.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Servers/src/main/java/org/server/View.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Servers/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Servers/src/main/resources/.env" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Servers/src/main/resources/log4j2.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
     <file url="PROJECT" charset="windows-1251" />
   </component>
 </project>

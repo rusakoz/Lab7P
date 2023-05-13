@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
@@ -15,16 +14,16 @@ import java.net.Socket;
 
 @Getter
 @Setter
-public class SocketClient {
-    private static final Logger logger = LoggerFactory.getLogger(org.server.Main.class);
+public class SocketClient{
+    private static final Logger logger = LoggerFactory.getLogger(SocketClient.class);
     private Socket socket;
     private String hostname;
     private int port;
 
-    private Dotenv dotenv = Dotenv.load();
+    private final Dotenv dotenv = Dotenv.load();
     public SocketClient(){
-        this.hostname = dotenv.get("host");
-        this.port = Integer.parseInt(dotenv.get("port"));
+        this.hostname = "127.0.0.1";
+        this.port = 7777;
     }
 
     public Socket connect() throws IOException{
@@ -35,20 +34,34 @@ public class SocketClient {
         return clientSocket;
     }
 
-    public void answer() throws IOException {
+    public void answer(Object obj) throws IOException, ClassNotFoundException {
         socket = connect();
+
+        Kto kto = new Kto("Ruslan");
+        logger.info("otpravka");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+        objectOutputStream.writeObject(obj);
+        System.out.println(objectOutputStream);
+        logger.info("Obj otpravlen");
 
-    }
+        priem();
+        logger.info("Obj prishel");
 
-    public void priem() throws IOException {
-        ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
-
+        objectOutputStream.close();
         close();
     }
 
-    public final void close() throws IOException {
-        if (socket != null) socket.close();
+    public void priem() throws IOException, ClassNotFoundException {
+        ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
+
+        Others other = (Others) objectInputStream.readObject();
+        logger.info("Prishlo {}", other.getAge());
+
+        objectInputStream.close();
+
     }
 
+    public void close() throws IOException {
+        if (socket != null) socket.close();
+    }
 }
