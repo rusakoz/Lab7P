@@ -1,9 +1,9 @@
 package org.client.CommandManager.CreateObjectForCollection;
 
-import org.client.Collection.Coordinates;
-import org.client.Collection.Flat;
-import org.client.Collection.House;
-import org.client.Collection.View;
+import org.server.Coordinates;
+import org.server.Flat;
+import org.server.House;
+import org.server.View;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

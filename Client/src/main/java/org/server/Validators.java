@@ -1,10 +1,13 @@
-package org.client.Collection;
+package org.server;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import org.client.InputOutput;
+import org.server.Coordinates;
+import org.server.Flat;
+import org.server.House;
 
 import java.util.Set;
 

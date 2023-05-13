@@ -3,12 +3,11 @@ package org.client;
 import io.github.cdimascio.dotenv.Dotenv;
 import lombok.Getter;
 import lombok.Setter;
+import org.server.Other;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
@@ -39,9 +38,11 @@ public class SocketClient{
 
         Kto kto = new Kto("Ruslan");
         logger.info("otpravka");
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+        OutputStream outputStream = socket.getOutputStream();
+
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
         objectOutputStream.writeObject(obj);
-        System.out.println(objectOutputStream);
+        System.out.println(obj);
         logger.info("Obj otpravlen");
 
         priem();
@@ -54,7 +55,7 @@ public class SocketClient{
     public void priem() throws IOException, ClassNotFoundException {
         ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
 
-        Others other = (Others) objectInputStream.readObject();
+        Other other = (Other) objectInputStream.readObject();
         logger.info("Prishlo {}", other.getAge());
 
         objectInputStream.close();
