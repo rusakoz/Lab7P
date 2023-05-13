@@ -1,0 +1,28 @@
+package org.client.CommandManager.Commands;
+
+import lombok.NoArgsConstructor;
+import org.client.CommandManager.Command;
+import org.example.CollectionManager;
+
+/**
+ * Класс описывающий команду AddIfMax
+ */
+@NoArgsConstructor
+public class AddIfMaxCommand implements Command {
+    CollectionManager cm;
+    public AddIfMaxCommand(CollectionManager cm){
+        this.cm = cm;
+    }
+    @Override
+    public String Arg(){
+        return "";
+    }
+    @Override
+    public String Descr(){
+        return "добавить новый объект, если он больше наибольшего";
+    }
+    @Override
+    public void execute(String[] args) {
+        cm.addIfMax();
+    }
+}
