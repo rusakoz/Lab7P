@@ -4,10 +4,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
-import org.example.Coordinates;
-import org.example.Flat;
-import org.example.House;
-import org.example.InputOutput;
+import org.client.InputOutput;
 
 import java.util.Set;
 
@@ -22,10 +19,10 @@ public class Validators {
      * @param flat объект класса Flat
      * @param msg параметр для вывода информации на экран
      */
-    public final void validatorFlat(org.example.Flat flat, String msg) {
+    public final void validatorFlat(Flat flat, String msg) {
         ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
         Validator validator = validatorFactory.getValidator();
-        Set<ConstraintViolation<org.example.Flat>> validate = validator.validate(flat);
+        Set<ConstraintViolation<Flat>> validate = validator.validate(flat);
         if (validate.size() > 0){
             new InputOutput().Output(msg);
             for(ConstraintViolation<Flat> violation : validate) {
@@ -39,10 +36,10 @@ public class Validators {
      * @param house объект класса House
      * @param msg параметр для вывода информации на экран
      */
-    public final void validatorHouse(org.example.House house, String msg){
+    public final void validatorHouse(House house, String msg){
         ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
         Validator validator = validatorFactory.getValidator();
-        Set<ConstraintViolation<org.example.House>> validate = validator.validate(house);
+        Set<ConstraintViolation<House>> validate = validator.validate(house);
         if (validate.size() > 0){
             new InputOutput().Output(msg);
             for(ConstraintViolation<House> violation : validate) {

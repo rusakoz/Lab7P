@@ -1,18 +1,15 @@
 package org.client.CommandManager.Commands;
 
-import lombok.NoArgsConstructor;
 import org.client.CommandManager.Command;
-import org.example.CollectionManager;
+import lombok.NoArgsConstructor;
+
 
 /**
  * Класс описывающий команду Info
  */
 @NoArgsConstructor
 public class InfoCommand implements Command {
-    CollectionManager cm;
-    public InfoCommand(CollectionManager cm){
-        this.cm = cm;
-    }
+
     @Override
     public String Arg() {
         return "";
@@ -25,6 +22,6 @@ public class InfoCommand implements Command {
 
     @Override
     public void execute(String[] args) {
-        cm.info();
+
     }
 }

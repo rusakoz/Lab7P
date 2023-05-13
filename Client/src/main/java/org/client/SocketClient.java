@@ -3,7 +3,6 @@ package org.client;
 import io.github.cdimascio.dotenv.Dotenv;
 import lombok.Getter;
 import lombok.Setter;
-import org.server.Other;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +15,7 @@ import java.net.Socket;
 @Getter
 @Setter
 public class SocketClient{
-    private static final Logger logger = LoggerFactory.getLogger(org.server.Main.class);
+    private static final Logger logger = LoggerFactory.getLogger(SocketClient.class);
     private Socket socket;
     private String hostname;
     private int port;
@@ -55,7 +54,7 @@ public class SocketClient{
     public void priem() throws IOException, ClassNotFoundException {
         ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
 
-        Other other = (Other) objectInputStream.readObject();
+        Others other = (Others) objectInputStream.readObject();
         logger.info("Prishlo {}", other.getAge());
 
         objectInputStream.close();

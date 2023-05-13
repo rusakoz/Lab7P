@@ -1,11 +1,14 @@
 package org.client.CommandManager.CreateObjectForCollection;
 
+import org.client.Collection.Coordinates;
+import org.client.Collection.Flat;
+import org.client.Collection.House;
+import org.client.Collection.View;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.client.InputOutput;
 
-import org.client.Collection.*;
-import org.example.InputOutput;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -1,10 +1,10 @@
 package org.client.CommandManager.Commands;
 
-import lombok.NoArgsConstructor;
 import org.client.CommandManager.Command;
 import org.client.CommandManager.CreateObjectForCollection.AddObject;
-import org.client.CommandManager.CreateObjectForCollection.ObjectToSend;
 import org.client.SocketClient;
+import lombok.NoArgsConstructor;
+import org.client.CommandManager.CreateObjectForCollection.ObjectToSend;
 
 import java.io.IOException;
 

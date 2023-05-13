@@ -1,8 +1,9 @@
 package org.client.CommandManager;
 
+import org.client.CommandManager.Commands.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.client.CommandManager.Commands.*;
+
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
