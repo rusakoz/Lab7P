@@ -4,7 +4,7 @@ import org.client.CommandManager.Command;
 import org.client.CommandManager.CreateObjectForCollection.AddObject;
 import org.client.SocketClient;
 import lombok.NoArgsConstructor;
-import org.client.CommandManager.CreateObjectForCollection.ObjectToSend;
+import org.server.ObjectToSend;
 
 import java.io.IOException;
 

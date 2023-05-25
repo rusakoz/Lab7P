@@ -42,8 +42,10 @@ public class SocketServer {
 
             ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
             System.out.println(objectInputStream);
+            System.out.println("dasdas");
 
             ObjectToSend kto = (ObjectToSend) objectInputStream.readObject();
+
             Flat flat = (Flat) kto.getObject();
             logger.info("Prishlo {} {}", kto.getNameCommand(), flat.getName());
 
@@ -55,9 +57,10 @@ public class SocketServer {
         }
     }
 
-    public void answer(){
-        //PrintWriter printWriter = new PrintWriter(clientSocket.getOutputStream(), true);
-        //printWriter.println("rjwefasdfodjsfa");
+    public void answer(Object obj){
+        //ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+        //objectOutputStream.writeObject(obj);
+        //logger.info("Obj otpravlen");
     }
 
     public void close() throws IOException {

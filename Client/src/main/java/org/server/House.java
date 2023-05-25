@@ -1,4 +1,4 @@
-package org.client.Collection;
+package org.server;
 
 import com.opencsv.bean.CsvBindByName;
 import jakarta.validation.constraints.DecimalMin;
@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -17,6 +18,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class House implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 3L;
     @NotNull(message = "Название дома не может быть null")
     @CsvBindByName(column = "House name")
     private String name; //Поле может быть null

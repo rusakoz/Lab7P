@@ -4,6 +4,7 @@ import com.opencsv.bean.CsvBindByName;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -15,6 +16,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Coordinates implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 4L;
     @NotNull(message = "Координата x не может быть null")
     @CsvBindByName(column = "Coordinates Integer x")
     private Integer x; //Поле не может быть null
