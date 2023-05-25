@@ -3,6 +3,8 @@ package org.server.Analyze.Commands;
 import lombok.NoArgsConstructor;
 import org.server.Analyze.CollectionManager;
 import org.server.Analyze.Command;
+import org.server.ObjectToSend;
+
 /**
  * Класс описывающий команду GroupCountingByCreationDateCommand
  */
@@ -21,7 +23,7 @@ public class GroupCountingByCreationDateCommand implements Command {
         return "сгруппировать элементы по дате создания";
     }
     @Override
-    public void execute(String[] args) {
-        cm.groupCountingByCreationDate();
+    public void execute(ObjectToSend objectToSend) {
+
     }
 }

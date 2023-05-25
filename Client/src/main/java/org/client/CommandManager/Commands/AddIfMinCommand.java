@@ -2,6 +2,11 @@ package org.client.CommandManager.Commands;
 
 import lombok.NoArgsConstructor;
 import org.client.CommandManager.Command;
+import org.client.CommandManager.CreateObjectForCollection.AddObject;
+import org.client.SocketClient;
+import org.server.ObjectToSend;
+
+import java.io.IOException;
 
 
 /**
@@ -20,7 +25,8 @@ public class AddIfMinCommand implements Command {
         return "добавить новый объект, если он больше наименьшего";
     }
     @Override
-    public void execute(String[] args) {
-
+    public void execute(String[] args) throws IOException, ClassNotFoundException {
+        ObjectToSend objectToSend = new ObjectToSend(args[0], AddObject.newObjectFromScanner());
+        new SocketClient().answer(objectToSend);
     }
 }

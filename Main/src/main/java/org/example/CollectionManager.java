@@ -440,7 +440,7 @@ public class CollectionManager {
         history("execute_script");
         File file2 = new File(fileName);
         Invoker invoker = new Invoker(this);
-        //Set<String> set = new HashSet<>();
+
 
         try {
             if(!file2.canRead() || !file2.canWrite()) throw new SecurityException();

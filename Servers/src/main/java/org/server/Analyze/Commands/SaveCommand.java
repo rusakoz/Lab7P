@@ -3,6 +3,8 @@ package org.server.Analyze.Commands;
 import lombok.NoArgsConstructor;
 import org.server.Analyze.CollectionManager;
 import org.server.Analyze.Command;
+import org.server.ObjectToSend;
+
 /**
  * Класс описывающий команду Save
  */
@@ -23,7 +25,7 @@ public class SaveCommand implements Command {
     }
 
     @Override
-    public void execute(String[] args) {
-        cm.save();
+    public void execute(ObjectToSend objectToSend) {
+
     }
 }
