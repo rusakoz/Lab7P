@@ -25,7 +25,7 @@ public class UpdateCommand implements Command {
     }
 
     @Override
-    public void execute(ObjectToSend objectToSend) {
-
+    public ObjectToSend execute(ObjectToSend objectToSend) {
+        return new ObjectToSend("Команда успешно выполнена", null);
     }
 }

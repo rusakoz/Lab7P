@@ -23,7 +23,8 @@ public class GroupCountingByCreationDateCommand implements Command {
         return "сгруппировать элементы по дате создания";
     }
     @Override
-    public void execute(ObjectToSend objectToSend) {
+    public ObjectToSend execute(ObjectToSend objectToSend) {
 
+        return new ObjectToSend("Команда успешно выполнена", null);
     }
 }

@@ -18,7 +18,8 @@ public class ExitCommand implements Command {
         return "завершить работу программы(без сохранения)";
     }
     @Override
-    public void execute(ObjectToSend objectToSend) {
+    public ObjectToSend execute(ObjectToSend objectToSend) {
 
+        return new ObjectToSend("Команда успешно выполнена", null);
     }
 }

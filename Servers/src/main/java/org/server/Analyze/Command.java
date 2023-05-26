@@ -21,6 +21,8 @@ public interface Command {
      *
      * @param objectToSend аргумент передачи объекта
      */
-    default void execute(ObjectToSend objectToSend){}
+    default ObjectToSend execute(ObjectToSend objectToSend){
+        return null;
+    }
 
 }

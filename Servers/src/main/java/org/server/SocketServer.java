@@ -1,6 +1,7 @@
 package org.server;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import org.server.Analyze.Analyzer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,10 +10,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
+import java.util.LinkedHashMap;
 
 public class SocketServer {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
-    private int port;
+    private final int port;
     private final Dotenv dotenv = Dotenv.load();
     private ServerSocket serverSocket;
 
@@ -23,9 +26,10 @@ public class SocketServer {
     public void openSocket() {
         try {
             serverSocket = new ServerSocket(port);
+            //serverSocket.setSoTimeout(20000);
             logger.info("OpenSocket");
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -34,7 +38,11 @@ public class SocketServer {
 
         while(true) {
             logger.info("Server waiting...");
-            Socket clientSocket = serverSocket.accept();
+            //try {
+                Socket clientSocket = serverSocket.accept();
+            //}catch (SocketTimeoutException e){
+                //logger.info("Сервер не получил запрос");
+            //}
             logger.info("Server accepted new packet");
 
             System.out.println(clientSocket);
@@ -44,14 +52,16 @@ public class SocketServer {
             System.out.println(objectInputStream);
             System.out.println("dasdas");
 
-            ObjectToSend kto = (ObjectToSend) objectInputStream.readObject();
 
-            Flat flat = (Flat) kto.getObject();
-            logger.info("Prishlo {} {}", kto.getNameCommand(), flat.getName());
+            //ObjectToSend kto = (ObjectToSend) objectInputStream.readObject();
+            //LinkedHashMap<String, Integer> map = (LinkedHashMap<String, Integer>) kto.getObject();
+            //Flat flat = (Flat) kto.getObject();
+            //logger.info("Prishlo {} {}", kto.getNameCommand(), flat.getName());
+            //map.forEach((key, value) -> System.out.println(key + " " + value));
 
 
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
-            objectOutputStream.writeObject(other);
+            objectOutputStream.writeObject(new Analyzer().executor(objectInputStream));
             logger.info("Obj otpravlen");
 ;
         }

@@ -25,7 +25,7 @@ public class InfoCommand implements Command {
     }
 
     @Override
-    public void execute(ObjectToSend objectToSend) {
-
+    public ObjectToSend execute(ObjectToSend objectToSend) {
+        return new ObjectToSend("Команда успешно выполнена", cm.info());
     }
 }

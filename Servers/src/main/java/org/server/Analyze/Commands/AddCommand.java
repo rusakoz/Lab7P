@@ -24,7 +24,7 @@ public class AddCommand implements Command {
         return "добавить новый объект";
     }
     @Override
-    public void execute(ObjectToSend objectToSend) {
-        cm.add((Flat) objectToSend.getObject());
+    public ObjectToSend execute(ObjectToSend objectToSend) {
+        return new ObjectToSend("Команда успешно выполнена", cm.add((Flat) objectToSend.getObject()));
     }
 }

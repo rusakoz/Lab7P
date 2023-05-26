@@ -1,5 +1,7 @@
 package org.server;
 
+import org.server.Analyze.CollectionManager;
+import org.server.Analyze.Invoker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,6 +11,9 @@ public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
+
+        CollectionManager a = new CollectionManager();
+        a.Read();
 
         SocketServer socketServer = new SocketServer();
         socketServer.openSocket();

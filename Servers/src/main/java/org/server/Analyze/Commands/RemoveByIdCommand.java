@@ -25,8 +25,9 @@ public class RemoveByIdCommand implements Command {
         return "удалить объект по id";
     }
     @Override
-    public void execute(ObjectToSend objectToSend) {
+    public ObjectToSend execute(ObjectToSend objectToSend) {
 
+        return new ObjectToSend("Команда успешно выполнена", null);
     }
 
 }
