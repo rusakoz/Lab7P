@@ -15,7 +15,6 @@ import lombok.Setter;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.*;
 import java.util.*;
 
 import org.server.*;
@@ -25,23 +24,22 @@ import org.slf4j.*;
 @Setter
 @Getter
 public class CollectionManager {
-    private Date date;
-    private LinkedHashSet<Flat> collection;
+    private static final Logger logger = LoggerFactory.getLogger(CollectionManager.class);
+    private static final Date date = new Date();
+    private static LinkedHashSet<Flat> collection = new LinkedHashSet<>();
     private List<Flat> beans = null;
     private File file;
     private List<String> history;
 
-    private static String path = System.getenv("lab");
+    private static String path2 = System.getenv("lab");
     private Dotenv dotenv = Dotenv.load();
-    private String path2 = dotenv.get("HELLO");
+    private String path = dotenv.get("HELLO");
 
     private static final Logger log = LoggerFactory.getLogger(CollectionManager.class);
 
 
     public CollectionManager(){
         this.history = new ArrayList<>();
-        this.date = new Date();
-        this.collection = new LinkedHashSet<>();
     }
 
     public void Read() {
@@ -182,7 +180,7 @@ public class CollectionManager {
         }
 
 
-        beans = new ArrayList<>(getCollection());
+        beans = new ArrayList<>(collection);
 
         try (PrintWriter writer = new PrintWriter(path, StandardCharsets.UTF_8)){
             StatefulBeanToCsv<Flat> beanToCsv = new StatefulBeanToCsvBuilder<Flat>(writer)
@@ -197,10 +195,14 @@ public class CollectionManager {
         return true;
     }
 
-    public Flat add(Flat a){
+    public StringBuilder add(Flat a){
+        collection.add(FlatWithID(a));
+        logger.info("Новый элемент был успешно добавлен");
+        return new StringBuilder("Новый элемент был успешно добавлен");
+    }
+
+    public Flat FlatWithID(Flat a){
         a.setId(newId());
-        collection.add(a);
-        new InputOutput().Output("Новый элемент был успешно добавлен");
         return a;
     }
 
@@ -239,23 +241,20 @@ public class CollectionManager {
         history("remove");
     }
 
-    public void info(){
-        new InputOutput().Output("Тип коллекции - 'LinkedHashSet' | Дата инициализации - " + date + " | Кол-во элементов - " + collection.size());
+    public StringBuilder info(){
         history("info");
+        return new StringBuilder("Тип коллекции - 'LinkedHashSet' | Дата инициализации - ").append(date).append(" | Кол-во элементов - ").append(collection.size());
     }
 
-    public void show(){
-        if (collection.isEmpty()) {
-            new InputOutput().Output("Коллекция пустая");
-        }else {
-            collection.forEach(a -> new InputOutput().Output("id: " + a.getId() + "\nname: " + a.getName() +
-                    " | кол-во комнат: " + a.getNumberOfRooms() + " | время до метро: " + a.getTimeToMetroByTransport() +
-                    " | область: " + a.getArea() + " | дата создания элемента: " + a.getCreationDate() +
-                    " | координата X: " + a.getCoordinates().getX() + " | координата Y: " + a.getCoordinates().getY() +
-                    " | название дома: " + a.getHouse().getName() + " | возраст дома: " + a.getHouse().getYear() +
-                    " | кол-во этажей: " + a.getHouse().getNumberOfFloors() + " | вид: " + a.getView()));
-        }
+    public StringBuilder show(){
+        StringBuilder stringBuilder = new StringBuilder();
         history("show");
+        if (collection.isEmpty()) {
+            return stringBuilder.append("Коллекция пустая");
+        }else {
+            collection.forEach(a -> stringBuilder.append("\nid: ").append(a.getId()).append("\nname: ").append(a.getName()).append(" | кол-во комнат: ").append(a.getNumberOfRooms()).append(" | время до метро: ").append(a.getTimeToMetroByTransport()).append(" | область: ").append(a.getArea()).append(" | дата создания элемента: ").append(a.getCreationDate()).append(" | координата X: ").append(a.getCoordinates().getX()).append(" | координата Y: ").append(a.getCoordinates().getY()).append(" | название дома: ").append(a.getHouse().getName()).append(" | возраст дома: ").append(a.getHouse().getYear()).append(" | кол-во этажей: ").append(a.getHouse().getNumberOfFloors()).append(" | вид: ").append(a.getView()));
+            return stringBuilder;
+        }
     }
 
     public void update(int id){
@@ -284,20 +283,22 @@ public class CollectionManager {
         new InputOutput().Output("Выполнение скрипта окончено");
     }
 
-    public void addIfMax(Flat flat){
-        Flat fl = add(flat);
+    public StringBuilder addIfMax(Flat flat){
+        Flat fl = FlatWithID(flat);
+        history("add_if_max");
         if (fl.compareTo(Collections.max(collection)) > 0){
             add(fl);
-        }else new InputOutput().Output("Объект не больше максимального, поэтому не был добавлен в коллекцию");
-        history("add_if_max");
+            return new StringBuilder("Объект успешно добавлен");
+        }else return new StringBuilder("Объект не больше максимального, поэтому не был добавлен в коллекцию");
     }
 
-    public void addIfMin(Flat flat){
-        Flat fl = add(flat);
+    public StringBuilder addIfMin(Flat flat){
+        Flat fl = FlatWithID(flat);
+        history("add_if_min");
         if (fl.compareTo(Collections.min(collection)) > 0){
             add(fl);
-        }else new InputOutput().Output("Объект не больше минимального, поэтому не был добавлен в коллекцию");
-        history("add_if_min");
+            return new StringBuilder("Объект успешно добавлен");
+        }else return new StringBuilder("Объект не больше минимального, поэтому не был добавлен в коллекцию");
     }
 
     public void history(String commandName){

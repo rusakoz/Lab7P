@@ -24,7 +24,7 @@ public class HelpCommand implements Command {
         return "помощь";
     }
     @Override
-    public void execute(ObjectToSend objectToSend) {
-
+    public ObjectToSend execute(ObjectToSend objectToSend) {
+        return new ObjectToSend("Команда успешно выполнена", null);
     }
 }

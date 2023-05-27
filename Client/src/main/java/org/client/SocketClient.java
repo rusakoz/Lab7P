@@ -1,23 +1,27 @@
 package org.client;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.server.ObjectToSend;
 import org.server.Other;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.net.InetSocketAddress;
-import java.net.Socket;
+import java.net.*;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 public class SocketClient{
     private static final Logger logger = LoggerFactory.getLogger(SocketClient.class);
     private Socket socket;
     private String hostname;
     private int port;
+    private final int MAX_RECONNECTIONS = 10;
+    private int reconnections;
 
     private final Dotenv dotenv = Dotenv.load();
     public SocketClient(){
@@ -25,16 +29,28 @@ public class SocketClient{
         this.port = 7777;
     }
 
-    public Socket connect() throws IOException{
+    public void connect(){
 
         Socket clientSocket = new Socket();
-        clientSocket.connect(new InetSocketAddress(hostname, port), 2000);
+        try {
+            clientSocket.connect(new InetSocketAddress(hostname, port), 2000);
 
-        return clientSocket;
+            socket = clientSocket;
+
+        }catch (ConnectException e){
+            logger.error("Ошибка подключения к серверу, извините :(");
+            tryToReconnect();
+        }catch (SocketTimeoutException e) {
+            logger.error("Connection: " + e.getMessage() + ".");
+            tryToReconnect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void answer(Object obj) throws IOException, ClassNotFoundException {
-        socket = connect();
+
+        connect();
 
         Kto kto = new Kto("Ruslan");
         logger.info("otpravka");
@@ -53,12 +69,37 @@ public class SocketClient{
     }
 
     public void priem() throws IOException, ClassNotFoundException {
-        ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
+        try {
+            ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
 
-        Other other = (Other) objectInputStream.readObject();
-        logger.info("Prishlo {}", other.getAge());
+            ObjectToSend other = (ObjectToSend) objectInputStream.readObject();
+            logger.info("Prishlo {}", other.getNameCommand());
 
-        objectInputStream.close();
+            StringBuilder str = (StringBuilder) other.getObject();
+            logger.info("Prishlo {}", str);
+
+            objectInputStream.close();
+        }catch (SocketException e){
+            logger.info("Сервер прилег отдохнуть, приносим извинения :(");
+        }
+    }
+
+    private void tryToReconnect() {
+
+        logger.info("Попытка подключения к серверу через 10 секунд... (" + reconnections + "/10)");
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            logger.error(e.getMessage());
+        }
+
+        if (reconnections < MAX_RECONNECTIONS) {
+            reconnections++;
+            connect();
+
+        } else {
+            logger.info("Не удалось подключиться к серверу, повторите попытку позже :(");
+        }
 
     }
 

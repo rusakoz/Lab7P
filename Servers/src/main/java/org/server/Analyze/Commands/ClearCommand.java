@@ -26,7 +26,8 @@ public class ClearCommand implements Command {
     }
 
     @Override
-    public void execute(ObjectToSend objectToSend) {
+    public ObjectToSend execute(ObjectToSend objectToSend) {
         cm.clear();
+        return new ObjectToSend("Команда успешно выполнена", null);
     }
 }

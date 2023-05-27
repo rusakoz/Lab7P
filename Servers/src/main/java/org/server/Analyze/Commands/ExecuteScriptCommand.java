@@ -26,8 +26,8 @@ public class ExecuteScriptCommand implements Command {
     }
 
     @Override
-    public void execute(ObjectToSend objectToSend) {
+    public ObjectToSend execute(ObjectToSend objectToSend) {
         // что-то будет TODO
-
+        return new ObjectToSend("Команда успешно выполнена", null);
     }
 }

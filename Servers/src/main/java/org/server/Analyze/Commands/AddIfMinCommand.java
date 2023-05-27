@@ -24,7 +24,7 @@ public class AddIfMinCommand implements Command {
         return "добавить новый объект, если он больше наименьшего";
     }
     @Override
-    public void execute(ObjectToSend objectToSend) {
-        cm.addIfMin((Flat) objectToSend.getObject());
+    public ObjectToSend execute(ObjectToSend objectToSend) {
+        return new ObjectToSend("Команда успешно выполнена, ", cm.addIfMin((Flat) objectToSend.getObject()));
     }
 }

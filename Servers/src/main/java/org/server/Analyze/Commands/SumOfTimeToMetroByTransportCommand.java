@@ -23,7 +23,7 @@ public class SumOfTimeToMetroByTransportCommand implements Command {
         return "добавить новый объект, если он больше наименьшего";
     }
     @Override
-    public void execute(ObjectToSend objectToSend) {
-
+    public ObjectToSend execute(ObjectToSend objectToSend) {
+        return new ObjectToSend("Команда успешно выполнена", null);
     }
 }

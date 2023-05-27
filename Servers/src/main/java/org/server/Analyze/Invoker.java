@@ -65,14 +65,43 @@ public class Invoker {
     /**
      * Метод реализующий чтение команд из System.in
      */
-    public void Invoke(ObjectToSend objectToSend) {
-        System.out.println("invoker start"); // отладка
+    public ObjectToSend Invoke(ObjectToSend objectToSend) {
+
+        if(objectToSend.getObject() != null) {
+            StringBuilder str = new StringBuilder();
+            if (objectToSend.getObject() instanceof Map<?,?>) {
+                Map<List<String>, List<Object>> map = (Map<List<String>, List<Object>>) objectToSend.getObject();
+                List<String> listStr = new LinkedList<>();
+                List<Object> listObj = new LinkedList<>();
+                for (Map.Entry<List<String>, List<Object>> entry : map.entrySet()) {
+                    listStr = entry.getKey();
+                    System.out.println(entry.getKey());
+                    listObj = entry.getValue();
+                    System.out.println(entry.getValue());
+                }
+
+                for (int i = 0; i < listStr.size(); i++) {
+                    System.out.println(listStr.get(i));
+
+                        System.out.println(listObj.get(i));
+                        ObjectToSend obj = new ObjectToSend(listStr.get(i), listObj.get(i));
+                        Command command = commands.get(obj.getNameCommand());
+                        str.append("\n").append(command.execute(obj).getObject());
 
 
-        Command command = commands.get(objectToSend.getNameCommand());
-        command.execute(objectToSend);
-
-
+                }
+//                map.forEach((key, value) -> {
+//                    ObjectToSend obj = new ObjectToSend(key, value);
+//                    Command command = commands.get(obj.getNameCommand());
+//                    str.append("\n").append(command.execute(obj).getObject());
+//                });
+                return new ObjectToSend("Скрипт успешно выполнен", str);
+            }
+            return new ObjectToSend("Скрипт успешно выполнен", str);
+        }else {
+            Command command = commands.get(objectToSend.getNameCommand());
+            return command.execute(objectToSend);
+        }
 
     }
 }

@@ -24,7 +24,8 @@ public class CountLessThanHouseCommand implements Command {
         return "количество элементов, значение поля house которых меньше заданного";
     }
     @Override
-    public void execute(ObjectToSend objectToSend) {
-        cm.add((Flat) objectToSend.getObject());
+    public ObjectToSend execute(ObjectToSend objectToSend) {
+        //cm.add((Flat) objectToSend.getObject());
+        return new ObjectToSend("Команда в разработке", null);
     }
 }

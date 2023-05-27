@@ -1,0 +1,7 @@
+show
+help
+execute_script Client/src/main/resources/script2.txt
+
+
+
+info

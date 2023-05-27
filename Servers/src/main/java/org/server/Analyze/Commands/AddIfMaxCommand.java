@@ -24,7 +24,8 @@ public class AddIfMaxCommand implements Command {
         return "добавить новый объект, если он больше наибольшего";
     }
     @Override
-    public void execute(ObjectToSend objectToSend) {
-        cm.addIfMax((Flat) objectToSend.getObject());
+    public ObjectToSend execute(ObjectToSend objectToSend) {
+
+        return new ObjectToSend("Команда успешно выполнена, ", cm.addIfMax((Flat) objectToSend.getObject()));
     }
 }
