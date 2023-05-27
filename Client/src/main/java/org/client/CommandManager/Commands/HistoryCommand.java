@@ -2,6 +2,10 @@ package org.client.CommandManager.Commands;
 
 import org.client.CommandManager.Command;
 import lombok.NoArgsConstructor;
+import org.client.SocketClient;
+import org.server.ObjectToSend;
+
+import java.io.IOException;
 
 
 /**
@@ -18,7 +22,8 @@ public class HistoryCommand implements Command {
         return "история последних 15 команд";
     }
     @Override
-    public void execute(String[] args) {
-
+    public void execute(String[] args) throws IOException, ClassNotFoundException {
+        ObjectToSend objectToSend = new ObjectToSend(args[0], null);
+        new SocketClient().answer(objectToSend);
     }
 }

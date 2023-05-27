@@ -2,6 +2,10 @@ package org.client.CommandManager.Commands;
 
 import org.client.CommandManager.Command;
 import lombok.NoArgsConstructor;
+import org.client.SocketClient;
+import org.server.ObjectToSend;
+
+import java.io.IOException;
 
 
 /**
@@ -21,7 +25,8 @@ public class InfoCommand implements Command {
     }
 
     @Override
-    public void execute(String[] args) {
-
+    public void execute(String[] args) throws IOException, ClassNotFoundException {
+        ObjectToSend objectToSend = new ObjectToSend(args[0], null);
+        new SocketClient().answer(objectToSend);
     }
 }

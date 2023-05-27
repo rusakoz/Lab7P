@@ -2,6 +2,9 @@ package org.client.CommandManager.Commands;
 
 import lombok.NoArgsConstructor;
 import org.client.CommandManager.Command;
+import org.client.CommandManager.CreateObjectForCollection.AddObject;
+import org.client.SocketClient;
+import org.server.ObjectToSend;
 
 
 /**

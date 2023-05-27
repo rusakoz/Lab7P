@@ -30,7 +30,6 @@ public class Invoker {
         commands.put("remove_by_id", new RemoveByIdCommand());
         commands.put("add", new AddCommand());
         commands.put("clear", new ClearCommand());
-        commands.put("save", new SaveCommand());
         commands.put("execute_script", new ExecuteScriptCommand());
         commands.put("exit", new ExitCommand());
         commands.put("add_if_max", new AddIfMaxCommand());
@@ -49,7 +48,7 @@ public class Invoker {
 
         System.out.println("invoker start"); // отладка
 
-        //ScannerSysIn scanner = new ScannerSysIn();
+
         Scanner sc = new Scanner(System.in);
 
         while (sc.hasNext()) {

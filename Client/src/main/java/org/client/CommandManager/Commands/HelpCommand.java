@@ -3,6 +3,10 @@ package org.client.CommandManager.Commands;
 import org.client.CommandManager.Invoker;
 import lombok.NoArgsConstructor;
 import org.client.CommandManager.Command;
+import org.client.SocketClient;
+import org.server.ObjectToSend;
+
+import java.io.IOException;
 
 
 /**
@@ -19,7 +23,8 @@ public class HelpCommand implements Command {
         return "помощь";
     }
     @Override
-    public void execute(String[] args){
-
+    public void execute(String[] args) throws IOException, ClassNotFoundException {
+        ObjectToSend objectToSend = new ObjectToSend(args[0], null);
+        new SocketClient().answer(objectToSend);
     }
 }

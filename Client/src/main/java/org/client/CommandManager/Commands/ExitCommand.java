@@ -2,6 +2,7 @@ package org.client.CommandManager.Commands;
 
 import lombok.NoArgsConstructor;
 import org.client.CommandManager.Command;
+import org.client.InputOutput;
 
 @NoArgsConstructor
 public class ExitCommand implements Command {
@@ -16,6 +17,7 @@ public class ExitCommand implements Command {
     }
     @Override
     public void execute(String[] args) {
-
+        new InputOutput().OutputErr("Программа остановлена");
+        System.exit(0);
     }
 }

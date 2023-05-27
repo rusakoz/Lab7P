@@ -3,6 +3,8 @@ package org.server.Analyze.Commands;
 import lombok.NoArgsConstructor;
 import org.server.Analyze.CollectionManager;
 import org.server.Analyze.Command;
+import org.server.ObjectToSend;
+
 /**
  * Класс описывающий команду Show
  */
@@ -23,7 +25,7 @@ public class ShowCommand implements Command {
     }
 
     @Override
-    public void execute(String[] args) {
-        cm.show();
+    public void execute(ObjectToSend objectToSend) {
+
     }
 }

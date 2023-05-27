@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 import org.server.Analyze.CollectionManager;
 import org.server.Analyze.Command;
 import org.server.Analyze.Invoker;
+import org.server.ObjectToSend;
 
 /**
  * Класс описывающий команду Help
@@ -23,9 +24,7 @@ public class HelpCommand implements Command {
         return "помощь";
     }
     @Override
-    public void execute(String[] args){
-        cm.help();
-        Invoker invoker = new Invoker();
-        invoker.getCommands().forEach((name, Command) -> System.out.println(name + Command.Arg() +" - " + Command.Descr()));
+    public void execute(ObjectToSend objectToSend) {
+
     }
 }

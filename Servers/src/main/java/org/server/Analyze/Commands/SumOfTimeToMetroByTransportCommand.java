@@ -3,6 +3,8 @@ package org.server.Analyze.Commands;
 import lombok.NoArgsConstructor;
 import org.server.Analyze.CollectionManager;
 import org.server.Analyze.Command;
+import org.server.ObjectToSend;
+
 /**
  * Класс описывающий команду SumOfTimeToMetroByTransport
  */
@@ -21,7 +23,7 @@ public class SumOfTimeToMetroByTransportCommand implements Command {
         return "добавить новый объект, если он больше наименьшего";
     }
     @Override
-    public void execute(String[] args) {
-        cm.sumOfTimeToMetroByTransport();
+    public void execute(ObjectToSend objectToSend) {
+
     }
 }
