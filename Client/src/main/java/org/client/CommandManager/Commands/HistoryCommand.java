@@ -2,10 +2,13 @@ package org.client.CommandManager.Commands;
 
 import org.client.CommandManager.Command;
 import lombok.NoArgsConstructor;
+import org.client.InputOutput;
 import org.client.SocketClient;
 import org.server.ObjectToSend;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -13,6 +16,7 @@ import java.io.IOException;
  */
 @NoArgsConstructor
 public class HistoryCommand implements Command {
+    private static final List<String> history = new ArrayList<>();
     @Override
     public String Arg(){
         return "";
@@ -23,7 +27,13 @@ public class HistoryCommand implements Command {
     }
     @Override
     public void execute(String[] args) throws IOException, ClassNotFoundException {
-        ObjectToSend objectToSend = new ObjectToSend(args[0], null);
-        new SocketClient().answer(objectToSend);
+        history.add(args[0]);
+        history.forEach(a -> new InputOutput().Output(a));
+    }
+    public void add(String str){
+        history.add(str);
+    }
+    public void clear(){
+        history.clear();
     }
 }

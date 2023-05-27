@@ -20,7 +20,7 @@ public class SocketServer {
     private ServerSocket serverSocket;
 
     public SocketServer() {
-        this.port = 7777;
+        this.port = 7778;
     }
 
     public void openSocket() {

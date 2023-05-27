@@ -24,6 +24,7 @@ public class RemoveByIdCommand implements Command {
     }
     @Override
     public void execute(String[] args) throws ClassNotFoundException, IOException {
+        new HistoryCommand().add(args[0]);
         try {
             ObjectToSend objectToSend = new ObjectToSend(args[0], Integer.parseInt(args[1]));
             new SocketClient().answer(objectToSend);

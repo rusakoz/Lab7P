@@ -26,6 +26,8 @@ public class InfoCommand implements Command {
 
     @Override
     public void execute(String[] args) throws IOException, ClassNotFoundException {
+        System.out.println(args[0]);
+        new HistoryCommand().add(args[0]);
         ObjectToSend objectToSend = new ObjectToSend(args[0], null);
         new SocketClient().answer(objectToSend);
     }

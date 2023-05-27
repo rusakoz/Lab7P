@@ -24,7 +24,6 @@ public class GroupCountingByCreationDateCommand implements Command {
     }
     @Override
     public ObjectToSend execute(ObjectToSend objectToSend) {
-
-        return new ObjectToSend("Команда успешно выполнена", null);
+        return new ObjectToSend("Команда успешно выполнена", cm.groupCountingByCreationDate());
     }
 }

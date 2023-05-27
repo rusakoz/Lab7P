@@ -16,6 +16,7 @@ import java.io.ObjectInputStream;
 @EqualsAndHashCode
 @NoArgsConstructor
 public class Analyzer {
+    CollectionManager cm;
     private static final Logger logger = LoggerFactory.getLogger(Analyzer.class);
     public ObjectToSend executor(ObjectInputStream ois)  {
 
@@ -30,6 +31,7 @@ public class Analyzer {
         Invoker invoker = new Invoker(new CollectionManager());
         if (kto != null) {
             if(kto.getNameCommand().equals("12345")){
+                cm.Write();
                 logger.info("Сервер был остановлен командой");
                 System.exit(0);
             }

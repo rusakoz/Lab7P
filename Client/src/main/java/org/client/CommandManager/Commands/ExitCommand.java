@@ -17,6 +17,7 @@ public class ExitCommand implements Command {
     }
     @Override
     public void execute(String[] args) {
+        new HistoryCommand().clear();
         new InputOutput().OutputErr("Программа остановлена");
         System.exit(0);
     }

@@ -6,16 +6,15 @@ import lombok.Setter;
 
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.util.*;
+
 /**
  * Класс описывающий чтение из System.in
  */
 @Getter
 @Setter
 public class Invoker {
+
     Map<String, Command> commands;
 
     /**
@@ -55,14 +54,13 @@ public class Invoker {
 
             try {
                 String a = sc.nextLine(); // !!! nextLine !!!
-
                 if(a.matches("execute_script .*")){
                     if(a.isEmpty()) continue;
                     String[] tokens = a.split(" ");
                     Command command = commands.get(tokens[0]);
                     command.execute(tokens);
                     AntiRecursionScript.clearSet();
-                }else {
+                } else {
                     if(a.isEmpty()) continue;
                     String[] tokens = a.split(" ");
                     Command command = commands.get(tokens[0]);
@@ -71,6 +69,7 @@ public class Invoker {
 
             } catch (NullPointerException e) {
                 System.out.println("Команда введена неверно, повторите попытку, список команд - 'help'");
+                e.printStackTrace();
             } catch (NoSuchElementException e) {
                 System.out.println("не-не");
             }
