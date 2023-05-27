@@ -29,7 +29,7 @@ public class CollectionManager {
     private static LinkedHashSet<Flat> collection = new LinkedHashSet<>();
     private List<Flat> beans = null;
     private File file;
-    private List<String> history;
+    private static List<String> history = new ArrayList<>();
 
     private static String path2 = System.getenv("lab");
     private Dotenv dotenv = Dotenv.load();
@@ -39,7 +39,7 @@ public class CollectionManager {
 
 
     public CollectionManager(){
-        this.history = new ArrayList<>();
+
     }
 
     public void Read() {
@@ -234,11 +234,11 @@ public class CollectionManager {
     }
 
 
-    public void remove(int id){
-        if (!collection.removeIf(a -> a.getId() == id)) {
-            new InputOutput().Output("Элемента под id = " + id + " нет в коллекции");
-        }else new InputOutput().Output("Элемент коллекции под id = " + id + " был успешно удален");
+    public StringBuilder remove(int id){
         history("remove");
+        if (!collection.removeIf(a -> a.getId() == id)) {
+            return new StringBuilder("Элемента под id = " + id + " нет в коллекции");
+        }else return new StringBuilder("Элемент коллекции под id = " + id + " был успешно удален");
     }
 
     public StringBuilder info(){
@@ -264,10 +264,10 @@ public class CollectionManager {
         history("update");
     }
 
-    public void clear(){
+    public StringBuilder clear(){
         collection.clear();
-        new InputOutput().Output("Коллекция успешно очищена");
         history("clear");
+        return new StringBuilder("Коллекция успешно очищена");
     }
 
     public void save(){
