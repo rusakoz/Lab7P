@@ -26,6 +26,7 @@ public class SaveCommand implements Command {
 
     @Override
     public ObjectToSend execute(ObjectToSend objectToSend) {
+
         return new ObjectToSend("Команда успешно выполнена", null);
     }
 }

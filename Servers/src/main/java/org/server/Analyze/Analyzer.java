@@ -4,7 +4,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.server.Main;
 import org.server.ObjectToSend;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,8 +29,12 @@ public class Analyzer {
 
         Invoker invoker = new Invoker(new CollectionManager());
         if (kto != null) {
+            if(kto.getNameCommand().equals("12345")){
+                logger.info("Сервер был остановлен командой");
+                System.exit(0);
+            }
             return invoker.Invoke(kto);
-        }else {
+        } else {
             logger.error("Объект не был сформирован");
             return new ObjectToSend("Команда не была выполнена", null);
         }
