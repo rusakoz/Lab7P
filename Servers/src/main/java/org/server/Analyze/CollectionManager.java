@@ -31,9 +31,9 @@ public class CollectionManager {
     private File file;
     private static List<String> history = new ArrayList<>();
 
-    private static String path2 = System.getenv("lab");
+    private static String path = System.getenv("lab");
     private Dotenv dotenv = Dotenv.load();
-    private String path = dotenv.get("HELLO");
+    private String path2 = dotenv.get("HELLO");
 
     private static final Logger log = LoggerFactory.getLogger(CollectionManager.class);
 
@@ -252,16 +252,19 @@ public class CollectionManager {
         if (collection.isEmpty()) {
             return stringBuilder.append("Коллекция пустая");
         }else {
-            collection.forEach(a -> stringBuilder.append("\nid: ").append(a.getId()).append("\nname: ").append(a.getName()).append(" | кол-во комнат: ").append(a.getNumberOfRooms()).append(" | время до метро: ").append(a.getTimeToMetroByTransport()).append(" | область: ").append(a.getArea()).append(" | дата создания элемента: ").append(a.getCreationDate()).append(" | координата X: ").append(a.getCoordinates().getX()).append(" | координата Y: ").append(a.getCoordinates().getY()).append(" | название дома: ").append(a.getHouse().getName()).append(" | возраст дома: ").append(a.getHouse().getYear()).append(" | кол-во этажей: ").append(a.getHouse().getNumberOfFloors()).append(" | вид: ").append(a.getView()));
+//            collection.stream().sorted(new Compar()).forEach((a)-> System.out.println(a.getName()));
+            collection.stream().sorted(new Compar()).forEach((a) -> {
+                stringBuilder.append("\nid: ").append(a.getId()).append("\nname: ").append(a.getName()).append(" | кол-во комнат: ").append(a.getNumberOfRooms()).append(" | время до метро: ").append(a.getTimeToMetroByTransport()).append(" | область: ").append(a.getArea()).append(" | дата создания элемента: ").append(a.getCreationDate()).append(" | координата X: ").append(a.getCoordinates().getX()).append(" | координата Y: ").append(a.getCoordinates().getY()).append(" | название дома: ").append(a.getHouse().getName()).append(" | возраст дома: ").append(a.getHouse().getYear()).append(" | кол-во этажей: ").append(a.getHouse().getNumberOfFloors()).append(" | вид: ").append(a.getView());});
             return stringBuilder;
         }
     }
 
-    public void update(int id){
-        if(collection.removeIf(a -> a.getId() == id)){
-
-        }else new InputOutput().Output("Элемента под id = " + id + " нет в коллекции");
+    public StringBuilder update(Integer id, Object obj){
         history("update");
+        if(collection.removeIf(a -> a.getId() == id)){
+            add((Flat) obj);
+            return new StringBuilder("Объект успешно добавлен");
+        }else return new StringBuilder("Элемента под id = " + id + " нет в коллекции");
     }
 
     public StringBuilder clear(){
@@ -314,17 +317,19 @@ public class CollectionManager {
         history.forEach(a -> new InputOutput().Output(a));
     }
 
-    public void sumOfTimeToMetroByTransport(){
+    public StringBuilder sumOfTimeToMetroByTransport(){
+
+        history("sum_of_time_to_metro_by_transport");
         float sum = 0;
         for (Flat a:collection) {
             sum += a.getTimeToMetroByTransport();
         }
-        new InputOutput().Output(String.valueOf(sum));
-        history("sum_of_time_to_metro_by_transport");
+        return new StringBuilder(String.valueOf(sum));
     }
 
-    public void groupCountingByCreationDate(){
+    public StringBuilder groupCountingByCreationDate(){
         HashMap<Date, List<Flat>> hashMap = new HashMap<>();
+        StringBuilder str = new StringBuilder();
 
         for (Flat a:collection) {
             if (!hashMap.containsKey(a.getCreationDate())){
@@ -335,8 +340,9 @@ public class CollectionManager {
                 hashMap.get(a.getCreationDate()).add(a);
             }
         }
-        hashMap.forEach((a, b)-> System.out.println(a +" "+ b));
+        hashMap.forEach((a, b)-> str.append(a).append(" ").append(b));
         history("groupCountingByCreationDate");
+        return str;
     }
 
     public void help(){

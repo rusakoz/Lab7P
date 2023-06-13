@@ -63,7 +63,7 @@ public class Invoker {
      */
     public ObjectToSend Invoke(ObjectToSend objectToSend) {
 
-        if(objectToSend.getObject() != null) {
+        if(objectToSend.getNameCommand().equals("execute_script")) {
             StringBuilder str = new StringBuilder();
             if (objectToSend.getObject() instanceof Map<?,?>) {
                 Map<List<String>, List<Object>> map = (Map<List<String>, List<Object>>) objectToSend.getObject();

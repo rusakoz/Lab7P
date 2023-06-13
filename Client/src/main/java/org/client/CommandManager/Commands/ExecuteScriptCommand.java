@@ -30,6 +30,7 @@ public class ExecuteScriptCommand implements Command {
 
     @Override
     public void execute(String[] args) throws IOException, ClassNotFoundException {
+        new HistoryCommand().add(args[0]);
 
         try {
             if (args[1] == null) throw new ArrayIndexOutOfBoundsException();

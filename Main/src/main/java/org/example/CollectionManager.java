@@ -416,7 +416,7 @@ public class CollectionManager {
         history("show");
     }
 
-    public void update(int id){
+    public  update(int id, Object obj){
         if(collection.removeIf(a -> a.getId() == id)){
             add(newElementFromScanner(id));
         }else new InputOutput().Output("Элемента под id = " + id + " нет в коллекции");

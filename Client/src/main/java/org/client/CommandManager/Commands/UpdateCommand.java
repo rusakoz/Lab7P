@@ -2,11 +2,14 @@ package org.client.CommandManager.Commands;
 
 import lombok.NoArgsConstructor;
 import org.client.CommandManager.Command;
+import org.client.CommandManager.CreateObjectForCollection.AddObject;
 import org.client.InputOutput;
 import org.client.SocketClient;
 import org.server.ObjectToSend;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -26,8 +29,11 @@ public class UpdateCommand implements Command {
 
     @Override
     public void execute(String[] args) throws IOException, ClassNotFoundException {
+        new HistoryCommand().add(args[0]);
         try {
-            ObjectToSend objectToSend = new ObjectToSend(args[0], Integer.parseInt(args[1]));
+            Map<Integer, Object> map = new HashMap<>();
+            map.put(Integer.parseInt(args[1]), AddObject.newObjectFromScanner());
+            ObjectToSend objectToSend = new ObjectToSend(args[0], map);
             new SocketClient().answer(objectToSend);
         }catch (NumberFormatException e){
             new InputOutput().Output("Введенный аргумент не является целым числом");
