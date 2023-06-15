@@ -28,7 +28,7 @@ public class HelpCommand implements Command {
         cm.help();
         Invoker invoker = new Invoker();
         StringBuilder str = new StringBuilder();
-        invoker.getCommands().forEach((name, Command) -> str.append(name).append(Command.Arg()).append(" - ").append(Command.Descr()));
+        invoker.getCommands().forEach((name, Command) -> str.append(name).append(Command.Arg()).append(" - ").append(Command.Descr()).append("\n"));
         return new ObjectToSend("Команда успешно выполнена", str);
     }
 }

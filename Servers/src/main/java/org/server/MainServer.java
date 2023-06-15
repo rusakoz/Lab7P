@@ -1,17 +1,23 @@
 package org.server;
 
 import org.server.Analyze.CollectionManager;
+import org.server.DataBase.DatabaseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-public class Main {
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+public class MainServer {
+    private static final Logger logger = LoggerFactory.getLogger(MainServer.class);
 
     public static void main(String[] args) {
 
-        CollectionManager a = new CollectionManager();
+        DatabaseHandler databaseHandler = new DatabaseHandler();
+        databaseHandler.insert("Dima");
+        System.out.println(databaseHandler.select());
+
+
+        /*CollectionManager a = new CollectionManager();
         a.Read();
 
         SocketServer socketServer = new SocketServer();
@@ -23,6 +29,6 @@ public class Main {
                 logger.warn("WARNING {}", e.getMessage());
                 e.printStackTrace();
             }
-        }
+        }*/
     }
 }

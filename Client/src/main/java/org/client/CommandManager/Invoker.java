@@ -69,7 +69,7 @@ public class Invoker {
 
             } catch (NullPointerException e) {
                 System.out.println("Команда введена неверно, повторите попытку, список команд - 'help'");
-                e.printStackTrace();
+                //e.printStackTrace();
             } catch (NoSuchElementException e) {
                 System.out.println("не-не");
             }

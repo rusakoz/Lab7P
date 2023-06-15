@@ -44,7 +44,7 @@ public class CollectionManager {
 
     public void Read() {
 
-        if (path == null){
+        if (path2 == null){
             new InputOutput().Output("Переменная окружения отсутствует или не определена, дальнейшая работа приложения невозможна\nЗадайте переменную окружения 'lab' с путем до файла");
             System.exit(-1);
         }
@@ -61,7 +61,7 @@ public class CollectionManager {
         //File.createNewFile();
 
 
-        file = new File(path);
+        file = new File(path2);
         try {
             if(!file.canRead() || !file.canWrite()) throw new SecurityException();
         } catch (SecurityException e) {
@@ -74,7 +74,7 @@ public class CollectionManager {
             }
             str = scanner.nextLine();
             if (Objects.equals(str, "Y") | Objects.equals(str, "y")){
-                path = System.getenv("lab");
+                path2 = System.getenv("lab");
                 Read();
                 return;
             }
@@ -107,7 +107,7 @@ public class CollectionManager {
             System.out.println(r);
             */
 
-             beans = new CsvToBeanBuilder<Flat>(new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8))
+             beans = new CsvToBeanBuilder<Flat>(new InputStreamReader(new FileInputStream(path2), StandardCharsets.UTF_8))
                     .withType(Flat.class)
                     .withSeparator(',')
                      .withThrowExceptions(false) //если кол-во элементов строки не совпадает с кол-вом столбцов, то не выскочит CsvRequiredFieldEmptyException
@@ -163,7 +163,7 @@ public class CollectionManager {
 
     public boolean Write() {
 
-        file = new File(path);
+        file = new File(path2);
 
         try {
             if(!file.canRead() || !file.canWrite()) throw new SecurityException();

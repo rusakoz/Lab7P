@@ -6,11 +6,11 @@
 
 
     <groupId>org.example</groupId>
-    <artifactId>Lab6P</artifactId>
+    <artifactId>Lab7P</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>Clients</module>
+        <module>Client</module>
         <module>Servers</module>
         <module>Client</module>
     </modules>
@@ -54,6 +54,12 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j2-impl</artifactId>
             <version>2.20.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.5.1</version>
         </dependency>
 
     </dependencies>

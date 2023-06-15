@@ -25,7 +25,8 @@ public class SocketClient{
 
     private final Dotenv dotenv = Dotenv.load();
     public SocketClient(){
-        this.hostname = "helios.cs.ifmo.ru";
+        //this.hostname = "helios.cs.ifmo.ru";
+        this.hostname = "127.0.0.1";
         this.port = 7778;
     }
 

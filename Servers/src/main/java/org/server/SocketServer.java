@@ -10,11 +10,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
-import java.util.LinkedHashMap;
 
 public class SocketServer {
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    private static final Logger logger = LoggerFactory.getLogger(MainServer.class);
     private final int port;
     private final Dotenv dotenv = Dotenv.load();
     private ServerSocket serverSocket;

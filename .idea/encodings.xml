@@ -48,7 +48,7 @@
     <file url="file://$PROJECT_DIR$/Servers/src/main/java/org/server/Coordinates.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Servers/src/main/java/org/server/Flat.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Servers/src/main/java/org/server/House.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/Servers/src/main/java/org/server/Main.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Servers/src/main/java/org/server/MainServer.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Servers/src/main/java/org/server/ObjectToSend.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Servers/src/main/java/org/server/Other.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Servers/src/main/java/org/server/SocketServer.java" charset="UTF-8" />
